@@ -11,14 +11,15 @@
     function menuSet() {
       // 現在のウィンドウサイズとブレークポイントの値を比較
       if (window.innerWidth < switchPoint) {
-        if (!$( "#rwdMenuWrap" ).length) {
-          // body開始タグ直後にモバイル用ナビゲーションメニューのベースを追加
-          $( "body" ).prepend(
-            "<div id='rwdMenuWrap'>"
-              + "<div id='switchBtnArea'>"
-                + "<a href='javascript:void(0);' id='switchBtn'></a>"
-              + "</div>"
-            + "</div>");
+        if (document.getElementById('rwdMenuWrap') === null) {
+          // body開始タグ直後にモバイル用ナビゲーションメニューを追加
+          var spNav = document.createElement('div');
+          spNav.setAttribute('id', 'rwdMenuWrap');
+          spNav.innerHTML = "<div id='switchBtnArea'>"
+                              + "<a href='javascript:void(0);' id='switchBtn'></a>"
+                            + "</div>";
+          document.body.insertBefore(spNav, document.body.firstChild);
+
           // モバイル用ナビゲーションメニューにグローバルナビゲーションのhtml要素を追加
           $( "#rwdMenuWrap" ).append( menuSource );
 
