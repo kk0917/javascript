@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Test Suite</title>
+  <style>
+    #results li.pass { color: green; }
+    #results li.fail { color: red; }
+  </style>
+</head>
+<body>
+  <ul id="results"></ul>
+
+<script>
+(function() {
+  var results;
+
+  this.assert = function assert(value, desc) {
+    var li       = document.createElement("li");
+    li.className = value ? "pass" : "fail";
+    li.appendChild(document.createTextNode(desc));
+    results.appendChild(li);
+
+    if (!value) {
+      li.parentNode.parentNode.className = "fail";
+    }
+    return li;
+  };
+
+  this.test = function test(name, fn) {
+    results = document.getElementById("results");
+    results = assert(true, name).appendChild(document.createElement("ul"));
+
+    fn();
+  };
+})();
+
+test("テストA.", function() {
+  assert(true, "第一のアサート完了");
+  assert(true, "第二のアサート完了");
+  assert(true, "第三のアサート完了");
+});
+
+test("テストB.", function() {
+  assert(true, "第一のテスト完了");
+  assert(false, "第二のテスト失敗");
+  assert(true, "第三のテスト完了");
+});
+
+test("テストC.", function() {
+  assert(null, "失敗");
+  assert(5, "合格");
+});
+</script>
+</body>
+</html>

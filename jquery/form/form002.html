@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+.inputCount {
+  margin: 0 auto;
+  width: 500px;
+  text-align: left;
+}
+.inputCount .max {
+  font-size: 1em;
+  text-align: right;
+}
+.inputCount .countBelow {
+  color: #ff0000;
+  font-weight: bold;
+}
+.inputCount textarea {
+  width: 500px;
+  height: 100px;
+}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>jQuery TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">入力フォームに文字カウントを設置する</h2>
+
+<div id="wrapper">
+
+<div class="inputCount">
+  <div class="max">
+    <p>あと<span class="count">0</span></span>文字</p>
+  </div>
+  <textarea></textarea>
+</div>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+var countMax  = 120;
+var countThis = $( ".inputCount" );
+
+countThis.find( ".count" ).text( countMax );
+
+countThis.find( "textarea" ).on("keydown keyup keypress change", function() {
+  var thisValueLength = $( this ).val().length;
+  var countDown       = countMax - thisValueLength;
+
+  countThis.find( ".count" ).text( countDown );
+
+  if (countDown < 0) {
+    countThis.find( ".count" ).addClass( "countBelow" );
+    countThis.find( "textarea" ).css({backgroundColor:"#ffcccc"});
+  } else {
+    countThis.find( ".count" ).removeClass( "countBelow" );
+    countThis.find( "textarea" ).css({backgroundColor:"#fff"});
+  }
+});
+</script>
+</body>
+</html>

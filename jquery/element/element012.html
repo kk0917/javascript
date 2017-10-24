@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow"/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<link rel="stylesheet" href="../../common/css/chapterlist.css">
+<style>
+a:link,a:visited,a:active,a:hover { text-decoration: none;}
+
+#wrapper {
+	margin: 0 auto;
+	padding: 50px 0;
+	width: 800px;
+	text-align: left;
+}
+
+.btnArea {
+	padding-bottom: 1.5em;
+	text-align: center;
+}
+
+p {
+	padding-bottom: 2em;
+	font-size: 1em;
+	line-height: 1.8em;
+	text-align: left;
+}
+
+/* オーバーレイ要素のスタイル */
+#modalOverlay {
+  top: 0;
+  left: 0;
+  width: 100%;
+  position: fixed;
+  z-index: 97;
+  background: #000;
+  display: none;
+}
+/* モーダルウィンドウ全体のスタイル */
+#modalWindow {
+  margin-top: -200px;
+  margin-left: -250px;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  height: 400px;
+  position: fixed;
+  z-index: 98;
+  background: #fff;
+  display: none;
+}
+/* モーダルウィンドウ内の閉じるボタンのスタイル */
+#modalWindow > .modalClose {
+  top: -15px;
+  right: -15px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  font-size: 1.5em;
+  background: #757575;
+  border-radius: 30px;
+  box-shadow: 0 0 3px 0 #000;
+  position: absolute;
+  z-index: 99;
+  cursor: pointer;
+}
+/* モーダルウィンドウを開くボタン */
+.modalBtn {
+  padding: 15px 20px;
+  color: #444;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  display: inline-block;
+  overflow: hidden;
+  background: #ececec;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 3px #666;
+  transition: all 0.2s ease-in-out;
+}
+.modalBtn:hover {
+  opacity: 0.7;
+}
+/* モーダルウィンドウで表示する要素（通常時は非表示） */
+#modalInclude {
+  display: none;
+}
+/* コンテンツエリアのスタイル */
+#contWrap {
+  margin: 30px auto;
+  padding: 0 20px;
+  width: 100%;
+  height: 340px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+#modalWrapper h2 {
+  margin-bottom: 20px;
+  padding: 20px 0;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px dotted #333;
+}
+#modalWrapper p {
+  padding-bottom: 2em;
+  font-size: 1em;
+}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>jQuery TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">モーダルウィンドウ（3）ソースを外部HTMLにしてiframeで読み込む</h2>
+
+<div id="wrapper">
+
+<div class="btnArea">
+<a href="./modal/modal-iframe.html" class="modalBtn">≫ モーダルウィンドウを開く</a>
+</div>
+
+<p>窓の外の、まるで花火でいっぱいのような、あまの川のまん中に、黒い大きな建物が四棟ばかり立って、その一つの平屋根の上に、眼もさめるような、青宝玉と黄玉の大きな二つのすきとおった球が、輪になってしずかにくるくるとまわっていました。黄いろのがだんだん向うへまわって行って、青い小さいのがこっちへ進んで来、間もなく二つのはじは、重なり合って、きれいな緑いろの両面凸レンズのかたちをつくり、それもだんだん、まん中がふくらみ出して、とうとう青いのは、すっかりトパースの正面に来ましたので、緑の中心と黄いろな明るい環とができました。それがまただんだん横へ外れて、前のレンズの形を逆に繰り返し、とうとうすっとはなれて、サファイアは向うへめぐり、黄いろのはこっちへ進み、また丁度さっきのような風になりました。銀河の、かたちもなく音もない水にかこまれて、ほんとうにその黒い測候所が、睡っているように、しずかによこたわったのです。</p>
+
+<p>「あれは、水の速さをはかる器械です。水も……。」鳥捕りが云いかけたとき、「切符を拝見いたします。」三人の席の横に、赤い帽子をかぶったせいの高い車掌が、いつかまっすぐに立っていて云いました。鳥捕りは、だまってかくしから、小さな紙きれを出しました。車掌はちょっと見て、すぐ眼をそらして、（あなた方のは？）というように、指をうごかしながら、手をジョバンニたちの方へ出しました。</p>
+
+<p>「さあ、」ジョバンニは困って、もじもじしていましたら、カムパネルラは、わけもないという風で、小さな鼠いろの切符を出しました。ジョバンニは、すっかりあわててしまって、もしか上着のポケットにでも、入っていたかとおもいながら、手を入れて見ましたら、何か大きな畳んだ紙きれにあたりました。こんなもの入っていたろうかと思って、急いで出してみましたら、それは四つに折ったはがきぐらいの大きさの緑いろの紙でした。車掌が手を出しているもんですから何でも構わない、やっちまえと思って渡しましたら、車掌はまっすぐに立ち直って叮寧にそれを開いて見ていました。そして読みながら上着のぼたんやなんかしきりに直したりしていましたし燈台看守も下からそれを熱心にのぞいていましたから、ジョバンニはたしかにあれは証明書か何かだったと考えて少し胸が熱くなるような気がしました。</p>
+
+<p>「これは三次空間の方からお持ちになったのですか。」車掌がたずねました。「何だかわかりません。」もう大丈夫だと安心しながらジョバンニはそっちを見あげてくつくつ笑いました。「よろしゅうございます。南十字へ着きますのは、次の第三時ころになります。」車掌は紙をジョバンニに渡して向うへ行きました。</p>
+
+<p>カムパネルラは、その紙切れが何だったか待ち兼ねたというように急いでのぞきこみました。ジョバンニも全く早く見たかったのです。ところがそれはいちめん黒い唐草のような模様の中に、おかしな十ばかりの字を印刷したものでだまって見ていると何だかその中へ吸い込まれてしまうような気がするのでした。すると鳥捕りが横からちらっとそれを見てあわてたように云いました。「おや、こいつは大したもんですぜ。こいつはもう、ほんとうの天上へさえ行ける切符だ。天上どこじゃない、どこでも勝手にあるける通行券です。こいつをお持ちになれぁ、なるほど、こんな不完全な幻想第四次の銀河鉄道なんか、どこまででも行ける筈でさあ、あなた方大したもんですね。」「何だかわかりません。」ジョバンニが赤くなって答えながらそれを又畳んでかくしに入れました。そしてきまりが悪いのでカムパネルラと二人、また窓の外をながめていましたが、その鳥捕りの時々大したもんだというようにちらちらこっちを見ているのがぼんやりわかりました。「もうじき鷲の停車場だよ。」カムパネルラが向う岸の、三つならんだ小さな青じろい三角標と地図とを見較べて云いました。</p>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script src="../../common/js/chapterlist.js"></script>
+<script>
+var modalBtn       = $( ".modalBtn" );
+var overlayOpacity = 0.7;
+var fadeTime       = 500;
+
+modalBtn.on("click", function(e) {
+  // a要素のデフォルトイベントを無効化
+  e.preventDefault();
+
+  var modalHref    = $( this ).attr( "href" );
+  var windowHeight = $( window ).height();
+
+  // body閉じタグ前にオーバーレイ要素とモーダルウィンドウ要素を挿入
+  $( "body" ).append(
+    "<div id='modalOverlay'></div>"
+    + "<div id='modalWindow'>"
+      + "<div class='modalClose'>×</div>"
+      + "<iframe id='contWrap'></iframe>"
+    + "</div>"
+  );
+  // モーダルウィンドウ内のコンテンツを外部htmlファイルからiframeに読み込み
+  $( "#contWrap" ).attr( "src", modalHref );
+
+  // CSSで非表示にしていたオーバーレイ要素とモーダルウィンドウ要素を順番にフェードイン表示
+  $( "#modalOverlay, #modalWindow" ).css({display:"block", opacity:"0"});
+  $( "#modalOverlay" ).css({height:windowHeight})
+    .stop().animate({opacity:overlayOpacity}, fadeTime);
+  $( "#modalWindow" ).stop().animate({opacity:1}, fadeTime);
+
+  // リサイズ時のオーバーレイ要素の高さを随時調整
+  $( window ).on("resize", function() {
+    var adjHeight = $( window ).height();
+    $( "#modalOverlay" ).css({height:adjHeight});
+  });
+
+  // オーバーレイ要素とモーダル閉じるボタンクリック時のモーダルウィンドウのフェードアウト処理
+  $( "#modalOverlay, .modalClose" ).on("click", function() {
+    $( "#modalWindow, #modalOverlay" )
+      .stop().animate({opacity:"0"}, fadeTime, function() {
+        $( "#modalOverlay, #modalWindow" ).remove();
+      });
+  });
+});
+</script>
+</body>
+</html>

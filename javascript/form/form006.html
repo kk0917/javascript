@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>JavaScript TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">大項目の選択リストでの選択に応じて小項目の選択リストの内容を変更する</h2>
+
+<div id="wrapper">
+
+<form id="picker" action="" method="post">
+  <select id="state">
+    <option value="">--</option>
+    <option value="TK">東京都</option>
+    <option value="MY">宮城県</option>
+  </select>
+  <select id="cities">
+  </select>
+</form>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script>
+var citystore = new Array();
+citystore[0]  = ["TK", "新宿区"];
+citystore[1]  = ["TK", "江東区"];
+citystore[2]  = ["TK", "江戸川区"];
+citystore[3]  = ["MY", "仙台市青葉区"];
+citystore[4]  = ["MY", "仙台市太白区"];
+
+window.onload = function() {
+  document.getElementById("state").onchange = filterCities;
+};
+
+function filterCities() {
+  var state           = this.value;
+  var city            = document.getElementById("cities");
+  city.options.length = 0;
+
+  for (var i = 0; i < citystore.length; i++) {
+    var st = citystore[i][0];
+    if (st == state) {
+      var opt = new Option(citystore[i][1]);
+      try {
+        city.add(opt, null)
+      } catch (e) { // IE8はadd()メソッドで第二引数指定をサポートしていないことへの回避策
+        city.add(opt);
+      }
+    }
+  }
+}
+</script>
+</body>
+</html>

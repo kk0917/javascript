@@ -1,0 +1,203 @@
+﻿@charset "utf-8";
+/* ------------------------------
+   MEDIAQUERIES LAYOUT
+------------------------------ */
+@media only screen and (max-width: 800px) {
+	#wrapper, #title {
+		width: 100%;
+		margin: auto;
+		font-size: 120%;
+	}
+
+	/* ------------------------------
+	   Global Navigation
+	------------------------------ */
+	#globalNav ul {
+		width: 100%;
+	}
+	#globalNav ul li {
+		width: 20%;
+	}
+
+	/* ------------------------------
+	   #chapterList
+	------------------------------ */
+	#chapterList section h2 {
+		width: 100%;
+	}
+	#chapterList section h2 div {
+		width: 100%;
+	}
+	#chapterList section h2 div span {
+		display: inline;
+	}
+	#chapterList section h2 span {
+		width: 100%;
+	}
+
+	#chapterList section table {
+		width: 100%;
+	}
+
+	/* ------------------------------
+	   baseHeader
+	------------------------------ */
+	.baseHeader div {
+		width: 96%;
+		transition: all 0.3s ease-in-out;
+	}
+
+	/* ------------------------------
+	   element015
+	------------------------------ */
+	#loadArea {
+		width: 95%;
+	}
+	#moreBtn {
+		width: 95%;
+	}
+}
+
+/* ------------------------------
+   MEDIAQUERIES[SP]LAYOUT
+------------------------------ */
+@media only screen and (max-width: 768px) {
+	/*body {
+		min-width: 320px;
+	}*/
+	#wrapper, #title {
+		width: 100%;
+		margin: auto;
+		font-size: 120%;
+	}
+
+	/* ------------------------------
+	   Global Navigationn
+	------------------------------ */
+	/* PC用ナビゲーションメニューを非表示にする */
+	#globalNav {
+		display: none;
+	}
+	/* メニューエリアのスタイル */
+	#rwdMenuWrap {
+		width: 100%;
+		border-bottom: 1px solid #aaa;
+	}
+	/* ボタンエリア全体のスタイル */
+	#rwdMenuWrap #switchBtnArea {
+		width: 100%;
+		height: 60px;
+		background: #3c3c3c;
+		position: relative;
+	}
+	/* メニューを開くボタンのスタイル */
+	#rwdMenuWrap #switchBtnArea #switchBtn {
+		top: 10px;
+		right: 10px;
+		width: 40px;
+		height: 40px;
+		background: #a7a7a7 url(../img/btnOpen.png) no-repeat center center;
+		border-radius: 5px;
+		position: absolute;
+	}
+	/* 閉じるボタンのスタイル */
+	#rwdMenuWrap #switchBtnArea #switchBtn.btnClose {
+		background-image: url(../img/btnClose.png);
+	}
+	/* メニューリストのスタイル */
+	#rwdMenuWrap ul {
+		width: 100%;
+		display: none;
+	}
+	#rwdMenuWrap ul li {
+		width: 100%;
+		border-bottom: 1px solid #aaa;
+	}
+	#rwdMenuWrap ul li a {
+		padding: 15px 20px;
+		text-align: left;
+		background: #ebebeb url(../img/linkarw.png) no-repeat right center;
+		display: block;
+	}
+
+	/* ------------------------------
+	   baseHeader
+	------------------------------ */
+	.baseHeader div {
+		padding: 15px 0;
+		width: 100%;
+		text-align: center;
+	}
+
+	.baseHeader div h1 {
+		height: 40px;
+		font-size: 1em;
+		line-height: 40px;
+	}
+
+	.baseHeader div a {
+		margin: 0 auto;
+		top: auto;
+		right: auto;
+		width: 60%;
+		position: relative;
+	}
+
+	.baseHeader div a:link,.baseHeader div a:visited,.baseHeader div a:active {
+		text-decoration: none;
+		color: #fff;
+	}
+
+	.baseHeader div a:hover {
+		color: #fff!important;
+		background: #000!important;
+		text-decoration: none!important;
+	}
+
+	/* ------------------------------
+	   baseFooter
+	------------------------------ */
+	.baseFooter {
+		padding: 15px;
+	}
+
+	#chapterList section h2 {
+		width: 100%;
+	}
+	#chapterList section h2 div span {
+		display: inline;
+	}
+	#chapterList section h2 span {
+		display: inline;
+		padding: 20px 15px;
+		font-size: 1em;
+		text-align: center;
+	}
+
+	/* ------------------------------
+	   #chapterList
+	------------------------------ */
+	#chapterList section table th {
+		width: 100%;
+		border-right: none;
+		display: block;
+	}
+
+	#chapterList section table td {
+		width: 100%;
+		display: block;
+		border-right: none;
+	}
+
+	/* ------------------------------
+	   element015
+	------------------------------ */
+	#loadArea {
+		width: 95%;
+	}
+	#moreBtn {
+		width: 95%;
+		margin: 10px auto;
+    padding: 5px 0;
+	}
+}

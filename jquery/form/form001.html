@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+dl {
+  margin: 0 auto 50px auto;
+  width: 500px;
+  text-align: left;
+}
+dl dt {
+  font-weight: bold;
+}
+input[type=text] {
+  padding: 10px;
+  width: 100%;
+  font-size: 1em;
+  background: #fff;
+  border: 1px solid #000;
+  box-sizing: border-box;
+}
+textarea {
+  padding: 10px;
+  width: 100%;
+  height: 200px;
+  font-size: 1em;
+  background: #fff;
+  border: 1px solid #000;
+  box-sizing: border-box;
+}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>jQuery TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">入力フォームの簡易バリデーション</h2>
+
+<div id="wrapper">
+
+<dl>
+  <dt>お名前【必須】</dt>
+  <dd><input type="text" class="required" name="name" value=""></dd>
+</dl>
+<dl>
+  <dt>電話番号</dt>
+  <dd><input type="text" name="tel" value=""></dd>
+</dl>
+<dl>
+  <dt>内容【必須】</dt>
+  <dd><textarea name="text" class="required" rows="8" cols="80"></textarea></dd>
+</dl>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+$( ".required" ).on( "keydown keyup keypress change focus blur", function() {
+  if ($( this ).val() === "") {
+    $( this ).css({backgroundColor:"#ffcccc"});
+  } else {
+    $( this ).css({backgroundColor:"#fff"});
+  }
+}).change();
+
+// var required = document.getElementsByClassName("required");
+// for (var i = 0; i < required.length; i++) {
+//   required[i].onchange = function() {
+//     if (this.value.length === 0) {
+//       this.style.backgroundColor = "#ffcccc";
+//     } else {
+//       this.style.backgroundColor = "#fff";
+//     }
+//   };
+// }
+</script>
+</body>
+</html>

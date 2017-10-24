@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+  input[type="text"]:enabled {
+    border: 4px solid #ff0000;
+    padding: 5px 5px 5px 15px;
+  }
+  :disabled {
+    border: 2px solid #cccccc;
+  }
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>JavaScript TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">クリックされたラジオボタンに基づいて入力要素を有効または無効にする</h2>
+
+<div id="wrapper">
+
+<form id="picker">
+  Group 1: <input type="radio" name="group1" value="one"><br>
+  Group 2: <input type="radio" name="group1" value="two"><br>
+  Group 3: <input type="radio" name="group1" value="three"><br>
+  <br>
+  <input type="text" id="intext">
+  <input type="text" id="intext2">
+  <input type="text" id="intext3">
+</form>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script>
+// すべての入力フィールドを無効にする
+document.forms[0].elements["intext"].disabled = true;
+document.forms[0].elements["intext2"].disabled = true;
+document.forms[0].elements["intext3"].disabled = true;
+
+// clickイベントハンドラをラジオボタンに割り当てる
+var radios = document.forms[0].elements["group1"];
+for (var i = 0; i < radios.length; i++) {
+  radios[i].onclick = radioClicked;
+}
+
+function radioClicked() {
+  // クリックされたラジオボタンを割り出し、適切な入力要素を有効または無効にする
+  switch (this.value) {
+    case "one":
+      document.forms[0].elements["intext"].disabled = false;
+      document.forms[0].elements["intext2"].disabled = true;
+      document.forms[0].elements["intext3"].disabled = true;
+      break;
+    case "two":
+      document.forms[0].elements["intext"].disabled = true;
+      document.forms[0].elements["intext2"].disabled = false;
+      document.forms[0].elements["intext3"].disabled = true;
+      break;
+    case "three":
+      document.forms[0].elements["intext"].disabled = true;
+      document.forms[0].elements["intext2"].disabled = true;
+      document.forms[0].elements["intext3"].disabled = false;
+      break;
+  }
+}
+</script>
+</body>
+</html>

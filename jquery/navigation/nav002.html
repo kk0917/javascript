@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+a:link,a:visited,a:active,a:hover { text-decoration: none; color: #000;}
+/* ------------------------------
+   CHAPTER ELEMENTS
+------------------------------ */
+#mddNav {
+	width: 100%;
+	height: 45px;
+	background: #ebebeb;
+	background: linear-gradient(to bottom,  #ebebeb 45%,#d8d8d8 55%);
+	border-top: #aaa 1px solid;
+	border-bottom: #aaa 1px solid;
+	position: relative;
+	z-index: 10;
+}
+
+#mddNav > ul {
+	margin: 0 auto;
+	width: 800px;
+	height: 45px;
+	text-align: left;
+}
+
+#mddNav > ul > li {
+	width: 160px;
+	height: 45px;
+	float: left;
+	border-left: #aaa 1px solid;
+	box-sizing: border-box;
+}
+
+#mddNav > ul > li:last-child {
+	border-right: #aaa 1px solid;
+}
+
+#mddNav > ul > li > a {
+	height: 45px;
+	font-weight: bold;
+	line-height: 45px;
+	display: block;
+	text-align: center;
+	border: #fff 1px solid;
+	transition: all 0.2s linear;
+}
+
+#mddNav > ul > li:hover > a {
+	background: #fff;
+}
+
+#mddNav .mddWrap {
+	top: 45px;
+	left: 0;
+	width: 100%;
+	height: 0;
+	text-align: center;
+	background: #fff;
+	background: linear-gradient(to bottom,  #fff 0%,#efefef 100%);
+	border-bottom: #aaa 1px solid;
+	position: absolute;
+	z-index: 10;
+	overflow: hidden;
+	display: none;
+	box-shadow: 0 2px 2px #eee;
+}
+
+#mddNav .mddWrap .mddInner {
+	margin: 0 auto;
+	padding-top: 30px;
+	width: 800px;
+	height: 200px;
+	line-height: 1.5em;
+	text-align: left;
+}
+
+#mddNav .mddWrap .mddInner > div {
+	margin-right: 20px;
+	width: 250px;
+	float: left;
+	border-right: #aaa 1px solid;
+}
+
+#mddNav .mddWrap .mddInner > div:last-child {
+	margin-right: 0;
+	border-right: none;
+}
+
+#mddNav .mddWrap .mddInner > div > ul > li {
+	font-size: 0.8em;
+	line-height: 1.8em;
+}
+
+#mddNav .mddWrap .mddInner > div > ul > li a:link {
+	text-decoration: underline;
+}
+
+#mddNav .mddWrap .mddInner > div > ul > li a:hover {
+	text-decoration: none;
+}
+
+#mddNav .mddWrap .mddInner p {
+	margin-bottom: 20px;
+	padding-left: 10px;
+	line-height: 1.6em;
+	border-left: #000 5px solid;
+}
+
+#mddNav .mddWrap .mddInner p strong {
+	font-size: 1.1em;
+	display: block;
+}
+
+#mddNav .mddWrap .mddInner > div span {
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+#contents {
+	margin: 0 auto;
+	padding: 40px 0;
+	width: 800px;
+	text-align: left;
+}
+
+#contents p {
+	padding-bottom: 2em;
+	font-size: 0.9em;
+	line-height: 1.8em;
+}
+
+/* ------------------------------
+   CLEARFIX ELEMENTS
+------------------------------ */
+#mddNav > ul:before,
+#mddNav > ul:after {
+	content: " ";
+	display: table;
+}
+#mddNav > ul:after {clear: both;}
+#mddNav > ul {*zoom: 1;}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>jQuery TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">メガドロップダウンメニュー</h2>
+
+<div id="wrapper">
+
+<nav id="mddNav">
+  <ul>
+    <li>
+      <a href="#">WORKS</a>
+      <div class="mddWrap">
+        <div class="mddInner">
+          <p><strong>WORKS</strong>DESIGN・HTML/CSS・SYSTEM 制作について紹介します。</p>
+          <div>
+            <span>DESIGN</span>
+            <ul>
+              <li>＞<a href="#">コンセプトワーク</a></li>
+              <li>＞<a href="#">受賞リスト</a></li>
+              <li>＞<a href="#">実績紹介</a></li>
+            </ul>
+          </div>
+          <div>
+            <span>HTML/CSS</span>
+            <ul>
+              <li>＞<a href="#">W3C推奨マークアップ</a></li>
+              <li>＞<a href="#">構築手順</a></li>
+              <li>＞<a href="#">構築実績</a></li>
+            </ul>
+          </div>
+          <div>
+            <span>SYSTEM</span>
+            <ul>
+              <li>＞<a href="#">Webシステム設計</a></li>
+              <li>＞<a href="#">データ解析</a></li>
+            </ul>
+          </div>
+        </div><!-- mddInner -->
+      </div><!-- mddWrap -->
+    </li>
+    <li>
+      <a href="#">PRODUCT</a>
+      <div class="mddWrap">
+        <div class="mddInner">
+          <p><strong>PRODUCT</strong>プロダクト・サービスについて紹介します。</p>
+    			<div>
+    				<span>WEB</span>
+    				<ul>
+    					<li>＞<a href="#">WEBサイト制作</a></li>
+    					<li>＞<a href="#">CMS設計</a></li>
+    					<li>＞<a href="#">制作の流れ</a></li>
+    				</ul>
+    			</div>
+    			<div>
+    				<span>MOBILE &amp; SMART PHONE</span>
+    				<ul>
+    					<li>＞<a href="#">レスポンシブ制作</a></li>
+    					<li>＞<a href="#">APP制作</a></li>
+    					<li>＞<a href="#">使用言語</a></li>
+    				</ul>
+    			</div>
+    			<div>
+    				<span>SERVER</span>
+    				<ul>
+    					<li>＞<a href="#">サーバ構築＆運営</a></li>
+    					<li>＞<a href="#">サーバ移行</a></li>
+    					<li>＞<a href="#">DB設計</a></li>
+    				</ul>
+    			</div>
+        </div><!-- mddInner -->
+      </div><!-- mddWrap -->
+    </li>
+    <li>
+      <a href="#">RECRUIT</a>
+      <div class="mddWrap">
+        <div class="mddInner">
+          <p><strong>RECRUIT</strong>新卒・キャリア採用についてはこちらから。</p>
+    			<div>
+    				<span>新卒採用</span>
+    				<ul>
+    					<li>＞<a href="#">募集職種</a></li>
+    					<li>＞<a href="#">募集要項</a></li>
+    					<li>＞<a href="#">応募フォーム</a></li>
+    				</ul>
+    			</div>
+    			<div>
+    				<span>キャリア採用</span>
+    				<ul>
+    					<li>＞<a href="#">募集職種</a></li>
+    					<li>＞<a href="#">募集要項</a></li>
+    					<li>＞<a href="#">応募フォーム</a></li>
+    				</ul>
+    			</div>
+        </div><!-- mddInner -->
+      </div><!-- mddWrap -->
+    </li>
+    <li>
+      <a href="#">BLOG</a>
+    </li>
+    <li>
+      <a href="#">CONTACT</a>
+    </li>
+  </ul>
+</nav>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+$( "#mddNav > ul > li" ).hover(function() {
+  childPanel = $( this ).children( ".mddWrap" );
+  childPanel.each(function() {
+    childPanel.css({ height: "0", display: "block", opacity: "0"}).stop().animate({ height: "200px", opacity: "1"}, 500, "swing");
+  });
+}, function() {
+  childPanel.css({ display: "none"});
+});
+</script>
+</body>
+</html>

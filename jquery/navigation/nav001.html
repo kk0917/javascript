@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+#box {
+  display: none;
+  margin: 0 auto 0 auto;
+  max-width: 800;
+}
+#box ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+#box li {
+  padding: 8px 0 8px 0;
+  color: #20567d;
+  border-bottom: 1px dotted #000000;
+}
+#box_btn {
+  /*position: absolute;
+  top: 0;
+  right: 0;*/
+  color: #fff;
+  text-align: center;
+  border-radius: 0 0 8px 8px;
+  padding: 6px 20px 6px 20px;
+  background-color: #000000;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>jQuery TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">ボックスを開く／たたむ</h2>
+
+<div id="wrapper">
+
+<div id="box">
+  <ul>
+    <li>ホーム</li>
+    <li>会社案内</li>
+    <li>業務内容</li>
+    <li>サポート</li>
+    <li>お問い合わせ</li>
+  </ul>
+</div>
+<div class="header-contents">
+  <div id="box_btn">Menu</div>
+</div>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+$( "#box_btn" ).on("click", function() {
+  $( "#box" ).slideToggle();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow"/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<link rel="stylesheet" href="../../common/css/chapterlist.css">
+<style>
+/* Design */
+#wrapper {
+	padding: 50px 0;
+	text-align: center;
+}
+/* layout */
+.listArea, .listArea2 {
+  margin: 0 auto;
+  width: 660px;
+  text-align: left;
+  margin-bottom: 50px;
+}
+.listArea h3, .listArea2 h3 {
+  border-bottom: 1px dotted black;
+}
+.listArea ul, .listArea2 ul {
+  margin: 0 auto;
+  width: 660px;
+  text-align: left;
+}
+.listArea ul li, .listArea2 ul li {
+  margin: 10px;
+  padding: 10px;
+  width: 200px;
+  float: left;
+  border: 5px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Clearfix */
+ul:before,
+ul:after {
+	content: " ";
+	display: table;
+}
+ul:after {clear: both;}
+ul {*zoom: 1;}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>jQuery TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">並べられた要素の高さを一番大きい高さに揃える</h2>
+
+<div id="wrapper">
+
+<div class="listArea">
+  <h3>全てのliの高さを最大値に揃える</h3>
+  <ul>
+    <li>これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。</li>
+    <li>これは高さを測るためのダミーテキストです。</li>
+    <li>これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。</li>
+    <li>これは高さを測るためのダミーテキストです。</li>
+    <li>これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。</li>
+    <li>これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。</li>
+    <li>これは高さを測るためのダミーテキストです。</li>
+    <li>これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。</li>
+    <li>これは高さを測るためのダミーテキストです。</li>
+  </ul>
+</div><!-- /#listArea -->
+
+<div class="listArea2">
+  <h3>一行ごとに高さを揃える</h3>
+  <ul>
+    <li>これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。</li>
+    <li>これは高さを測るためのダミーテキストです。</li>
+    <li>これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。</li>
+    <li>これは高さを測るためのダミーテキストです。</li>
+    <li>これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。</li>
+    <li>これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。</li>
+    <li>これは高さを測るためのダミーテキストです。</li>
+    <li>これは高さを測るためのダミーテキストです。これは高さを測るためのダミーテキストです。</li>
+    <li>これは高さを測るためのダミーテキストです。</li>
+  </ul>
+</div><!-- /#listArea -->
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script src="../../common/js/chapterlist.js"></script>
+<script>
+// 全てのliの高さを最大値に揃える ///////////////////////////////////////////////////////////////
+(function() {
+  var allLi         = $( ".listArea ul li" );
+  // 高さを比較する際の、対象となるli要素のサイズ関連値を変数に格納しておく
+  var paddingTop    = parseInt(allLi.css( "padding-top" ));
+  var paddingBottom = parseInt(allLi.css( "padding-bottom" ));
+  var boxSizing     = allLi.css( "box-sizing" );
+
+  $( window ).on("load", function() {
+    // 比較時のベース値
+    var maxHeight = 0;
+
+    allLi.each(function() {
+      // 各li自身の高さを取得
+      var height = $( this ).outerHeight();
+
+      // すべてのliの高さを順々に取得し、最終的に最大値を格納
+      if (height > maxHeight) {
+        maxHeight = height;
+      }
+    });
+
+    // すべてのliのheightを書き換えて高さを揃える
+    if (boxSizing === "border-box") {
+      allLi.css({height:maxHeight});
+    } else {
+      allLi.css({height:(maxHeight - (paddingTop + paddingBottom))});
+    }
+  });
+})();
+
+// 一行ごとに高さを揃える ///////////////////////////////////////////////////////////////
+(function() {
+  var ulElem        = $( ".listArea2 ul" );
+  var allLi         = ulElem.find( "li" );
+  var paddingTop    = parseInt(allLi.css( "padding-top" ));
+  var paddingBottom = parseInt(allLi.css( "padding-bottom" ));
+  var boxSizing     = allLi.css( "box-sizing" );
+
+  function setHeight() {
+    var maxHeight = 0;
+
+    // liが収まる最大行数を算出する
+    ulWidth   = ulElem.outerWidth();
+    liWidth   = allLi.outerWidth();
+    maxColumn = Math.floor(ulWidth / liWidth);
+
+    allLi.css({height:"auto"}).each(function(i) {
+      // 各li自身の高さを取得
+      var height = $( this ).outerHeight();
+
+      // 行ごとに高さを揃えるためのクラスをli要素に設定
+      $( this ).addClass( "heightReplace" );
+
+      // 行ごとの高さ最大値を格納
+      if (height > maxHeight) {
+        maxHeight = height;
+      }
+
+      // 行ごとの1列目から最大列目に対して高さを設定する
+      if (boxSizing === "border-box") {
+        ulElem.find( ".heightReplace" ).css({height:maxHeight});
+      } else {
+        ulElem.find( ".heightReplace" ).css({height:maxHeight - (h - (paddingTop - paddingBottom))});
+      }
+
+      // 行ごとの最大列数に達したら、高さの最大値と高さ設定用クラスをリセット
+      i = i + 1;
+      if (i % maxColumn === 0 || i === allLi.length) {
+        maxHeight = 0;
+        allLi.removeClass( "heightReplace" );
+      }
+    });
+  }
+
+  $( window ).on("load resize", function() {
+    setHeight();
+  });
+})();
+</script>
+</body>
+</html>

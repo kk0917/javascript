@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+/* Design */
+a:link,a:visited,a:active,a:hover { text-decoration: none; color: #000;}
+#wrapper {
+	margin: 0 auto;
+	padding: 60px 0;
+	width: 800px;
+	text-align: center;
+}
+
+/* Layout */
+#filterBtn {
+  padding-bottom: 30px;
+}
+#filterBtn a {
+  margin: 0 3px;
+  padding: 8px 50px;
+  background: #fff;
+  background: linear-gradient(to bottom, #fff 40%, #ddd 100%);
+  border: 1px solid #ddd;
+  border-radius: 30px;
+}
+#filterBtn a:hover {
+  background: #fff;
+}
+#filterBtn a.active {
+  color: #ff0000;
+  font-weight: bold;
+  background: #fff;
+}
+#filterList ul {
+  margin: 0 auto;
+  width: 800px;
+  text-align: center;
+}
+#filterList ul li {
+  margin: 5px;
+  width: 150px;
+  float: left;
+}
+#filterList ul li img {
+  width: 150px;
+}
+
+/* clearfix */
+#filterList ul:before,
+#filterList ul:after {
+	content: " ";
+	display: table;
+}
+#filterList ul:after {clear: both;}
+#filterList ul {*zoom: 1;}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>jQuery TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">画面上に並べられた画像を特定のグループに分けてフィルタリングする</h2>
+
+<div id="wrapper">
+
+<div id="filterBtn">
+  <a href="javascript:void(0);" class="allItem">ALL</a>
+  <a href="javascript:void(0);" class="cats">CATS</a>
+  <a href="javascript:void(0);" class="food">FOOD</a>
+  <a href="javascript:void(0);" class="view">VIEW</a>
+</div>
+
+<div id="filterList">
+  <ul>
+    <li class="view"><img src="./img/element006/view1.jpg" alt=""></li>
+    <li class="cats"><img src="./img/element006/cats1.jpg" alt=""></li>
+    <li class="food"><img src="./img/element006/food1.jpg" alt=""></li>
+    <li class="cats"><img src="./img/element006/cats2.jpg" alt=""></li>
+    <li class="food"><img src="./img/element006/food2.jpg" alt=""></li>
+    <li class="cats"><img src="./img/element006/cats3.jpg" alt=""></li>
+    <li class="food"><img src="./img/element006/food3.jpg" alt=""></li>
+    <li class="view"><img src="./img/element006/view2.jpg" alt=""></li>
+    <li class="cats"><img src="./img/element006/cats4.jpg" alt=""></li>
+    <li class="food"><img src="./img/element006/food4.jpg" alt=""></li>
+    <li class="cats"><img src="./img/element006/cats5.jpg" alt=""></li>
+    <li class="view"><img src="./img/element006/view3.jpg" alt=""></li>
+    <li class="cats"><img src="./img/element006/cats6.jpg" alt=""></li>
+    <li class="food"><img src="./img/element006/food5.jpg" alt=""></li>
+    <li class="view"><img src="./img/element006/view4.jpg" alt=""></li>
+  </ul>
+</div>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+// フィルターボタン要素
+var setFilter = $( "#filterBtn" );
+var filterBtn = setFilter.find( "a" );
+var btnAll    = $( ".allItem" );
+// フィルタリングされる画像要素
+var setList    = $( "#filterList" );
+var filterList = setList.find( "li" );
+var listWidth  = filterList.outerWidth();
+
+// クリックイベントで画像をフィルタリング表示する
+filterBtn.on("click", function() {
+  if (!$( this ).hasClass( "active" )) {
+    // クリックしたボタンのクラス値を変数に格納
+    var filterClass = $( this ).attr( "class" );
+
+    // 各画像に対して処理を実行
+    filterList.each(function() {
+      // クリックした画像と同じクラス値を持っている画像を表示、それ以外は非表示
+      if ($( this ).hasClass( filterClass )) {
+        $( this ).css({display:"block"}).stop().animate({width:listWidth}, 1500);
+        $( this ).find( "*" ).stop().animate({opacity:"1"}, 1500);
+      } else {
+        $( this ).find( "*" ).stop().animate({opacity:"0"}, 1000);;
+        $( this ).stop().animate({width:"0"}, 1000, function() {
+          $( this ).css({display:"none"});
+        });
+      }
+    });
+
+    // フィルターボタン全てからactiveクラスを削除
+    // クリックされたボタンにのみactiveクラスを付与
+    filterBtn.removeClass( "active" );
+    $( this ).addClass( "active" );
+  }
+});
+
+// ALLボタンクリック時の全画像表示処理
+btnAll.click(function() {
+  // 各画像要素に対してコールバック関数の処理を実行
+  filterList.each(function() {
+    $( this ).css({display:"block"}).stop().animate({width:listWidth}, 1500);
+    $( this ).find( "*" ).stop().animate({opacity:"1"}, 1500);
+  });
+});
+
+// ページロード時にデフォルトで全画像を表示しておくため、ALLボタンクリック時の処理を一度実行
+btnAll.click();
+</script>
+</body>
+</html>

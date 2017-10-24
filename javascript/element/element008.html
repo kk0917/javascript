@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+section img {
+  max-width: 100%;
+}
+.center {
+  margin: 0 auto 0 auto;
+}
+.center p {
+  margin-bottom: 1%;
+}
+ul {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+li {
+  float: left;
+  margin-top: 1%;
+  margin-right: 1%;
+}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>JavaScript TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">サムネイルをクリックし画像を切り替える</h2>
+
+<div id="wrapper">
+
+<section>
+  <div class="center">
+    <p>サムネイル画像をクリックするとメイン画像が切り替わります。</p>
+    <div>
+      <img src="./img/photo1.jpg" id="bigimg" alt="">
+    </div>
+    <ul>
+      <li><img src="./img/photo1.thumbnail.jpg" class="thumb" data-image="./img/photo1.jpg" alt=""></li>
+      <li><img src="./img/photo2.thumbnail.jpg" class="thumb" data-image="./img/photo2.jpg" alt=""></li>
+      <li><img src="./img/photo3.thumbnail.jpg" class="thumb" data-image="./img/photo3.jpg" alt=""></li>
+    </ul>
+  </div>
+</section>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script>
+var thumbs = document.querySelectorAll(".thumb");
+
+for (var i = 0; i < thumbs.length; i++) {
+  thumbs[i].onclick = function() {
+    document.getElementById("bigimg").src = this.dataset.image;
+  };
+}
+</script>
+</body>
+</html>

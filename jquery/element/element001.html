@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+.ticker1, .ticker2, .ticker3 {
+  margin: 0 auto 10px;
+  padding: 10px 20px;
+  width: 500px;
+  text-align: left;
+  background: #fff;
+  background: linear-gradient(to bottom, #fff 50%, #efefef 100%);
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  position: relative;
+  overflow: hidden;
+}
+.ticker1 ul, .ticker2 ul, .ticker3 ul {
+  width: 100%;
+  height: 20px;
+  position: relative;
+}
+.ticker1 ul li, .ticker2 ul li, .ticker3 ul li {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+  display: none;
+  position: absolute;
+}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>jQuery TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">ニュースティッカー</h2>
+
+<div id="wrapper">
+
+<div class="ticker1">
+  <ul>
+    <li><a href="#5">2016/10/17 Worksに制作実績を追加しました。</a></li>
+    <li><a href="#4">2016/06/08 ニュース／イベント情報を更新しました。</a></li>
+    <li><a href="#3">2016/05/26 アプリをリリースしました。</a></li>
+    <li><a href="#2">2016/02/02 キャリア採用の応募を開始しました。</a></li>
+    <li><a href="#1">2016/01/01 Webサイトを公開しました。</a></li>
+  </ul>
+</div>
+
+<div class="ticker2">
+  <ul>
+    <li><a href="#5">2016/10/17 Worksに制作実績を追加しました。</a></li>
+    <li><a href="#4">2016/06/08 ニュース／イベント情報を更新しました。</a></li>
+    <li><a href="#3">2016/05/26 アプリをリリースしました。</a></li>
+    <li><a href="#2">2016/02/02 キャリア採用の応募を開始しました。</a></li>
+    <li><a href="#1">2016/01/01 Webサイトを公開しました。</a></li>
+  </ul>
+</div>
+
+<div class="ticker3">
+  <ul>
+    <li><a href="#5">2016/10/17 Worksに制作実績を追加しました。</a></li>
+    <li><a href="#4">2016/06/08 ニュース／イベント情報を更新しました。</a></li>
+    <li><a href="#3">2016/05/26 アプリをリリースしました。</a></li>
+    <li><a href="#2">2016/02/02 キャリア採用の応募を開始しました。</a></li>
+    <li><a href="#1">2016/01/01 Webサイトを公開しました。</a></li>
+  </ul>
+</div>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+// フェードイン／フェードアウト
+(function() {
+  var thisTicker = $( ".ticker1" );
+  var tickerUl   = thisTicker.find( "ul" );
+  var tickerLi   = tickerUl.find( "li" );
+  var liFirst    = tickerUl.find( "li:first" );
+
+  // 先頭のli要素のCSSを「display:block」で表示状態にしているli要素を示すために
+  // 「showlist」クラスを追加、その後の切り替えはこのクラスを判別して処理を行う
+  liFirst
+    .css({display:"block", opacity:"0", zIndex:"98"})
+    .stop().animate({opacity:"1"}, 1000, "linear")
+    .addClass( "showlist1" );
+
+  // 表示するli要素の切り替え
+  setInterval(function() {
+    var showLi = thisTicker.find( ".showlist1" );
+
+    showLi.animate({opacity:"0"}, 1000, "linear", function() {
+      $( this )
+        .next()
+          .css({display:"block", opacity:"0", zIndex:"99"})
+          .animate({opacity:"1"}, 1000, "swing")
+          .addClass( "showlist1" )
+          .end()
+        .appendTo(tickerUl)
+        .css({display:"none", zIndex:"98"})
+        .removeClass("showlist1");
+    });
+  }, 6000);
+})();
+
+// ロールアップ
+(function() {
+  var thisTicker = $( ".ticker2" );
+  var tickerUl   = thisTicker.find( "ul" );
+  var tickerLi   = tickerUl.find( "li" );
+  var liFirst    = tickerUl.find( "li:first" );
+  // ロールアップ移動させるためのリストの高さ
+  var listHeight = tickerLi.height();
+
+  // 最初のli要素のtopプロパティにlistHeightの高さを設定し、
+  // 下方向からスライドインさせるとともに、animateメソッドによるフェードアニメーションを実行
+  liFirst
+    .css({top:listHeight, display:"block", opacity:"0", zIndex:"98"})
+    .stop().animate({top:"0", opacity:"1"}, 500, "linear")
+    .addClass( "showlist2" );
+
+  setInterval(function() {
+    var showLi = thisTicker.find( ".showlist2" );
+
+    // 表示している「showlist」クラスがついたli要素のtopプロパティに
+    // listHeightの高さをマイナス指定して上方向にスライドアウトさせる
+    // 次に「showlist」クラスの次に位置しているli要素のtopプロパティを走査して下からスライドインさせる
+    showLi
+      .animate({top:-(listHeight), opacity:"0"}, 500, "linear")
+      .next()
+        .css({top:listHeight, display:"block", opacity:"0", zIndex:"99"})
+        .animate({top:"0", opacity:"1"}, 500, "linear")
+        .addClass( "showlist2" )
+        .end()
+      .appendTo(tickerUl)
+      .css({zIndex:"98"})
+      .removeClass( "showlist2" );
+  }, 6000);
+})();
+
+// スライドイン
+(function() {
+  var thisTicker = $( ".ticker3" );
+  var tickerUl   = thisTicker.find( "ul" );
+  var tickerLi   = tickerUl.find( "li" );
+  var liFirst    = tickerUl.find( "li:first" );
+  // 横からスライドインさせるためのwidthの値
+  var ulWidth    = tickerUl.width();
+
+  liFirst
+    .css({left:ulWidth, display:"block", opacity:"0", zIndex:"98"})
+    .stop().animate({left:"0", opacity:"1"}, 1000, "linear")
+    .addClass( "showlist3" );
+
+  // 表示するli要素の切り替え
+  setInterval(function() {
+    var showLi = thisTicker.find( ".showlist3" );
+
+    showLi
+      .animate({left:-(ulWidth), opacity:"0"}, 1000, "linear")
+      .next()
+        .css({left:ulWidth, display:"block", opacity:"0", zIndex:"99"})
+        .animate({left:"0", opacity:"1"}, 1000, "linear")
+        .addClass( "showlist3" )
+        .end()
+      .appendTo(tickerUl)
+      .css({display:"none", zIndex:"98"})
+      .removeClass("showlist3");
+  }, 6000);
+})();
+</script>
+</body>
+</html>

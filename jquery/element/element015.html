@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow"/>
+<meta name="viewport" content="width=device-width">
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+a:link,a:visited,a:active a:hover { text-decoration: none;}
+
+/*#wrapper {
+	margin: 0 auto;
+	padding: 80px 0;
+	width: 800px;
+	text-align: left;
+}*/
+
+#loadArea {
+  margin: 0 auto;
+  width: 800px;
+  text-align: left;
+}
+#loadArea a {
+  margin: 0 5px 10px 5px;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  transition: all 0.2s linear;
+}
+#loadArea a:hover {
+  opacity: 0.6;
+}
+#loadArea img {
+  width: 150px;
+  opacity: 0;
+}
+#moreBtn {
+  margin: 20px auto;
+  padding: 15px 0;
+  width: 800px;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  background: #777;
+  transition: all 0.2s linear;
+}
+#moreBtn:hover {
+  background: #999;
+}
+
+/* モーダルウィンドウのスタイル */
+#modalOverlay {
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #000;
+  position: fixed;
+  z-index: 97;
+  display: none;
+}
+#modalWindow {
+  margin-top: -200px;
+  margin-left: -300px;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 400px;
+  background: #fff;
+  position: fixed;
+  z-index: 98;
+  display: none;
+}
+#modalWindow > .modalClose {
+  top: -15px;
+  right: -15px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  font-size: 1.5em;
+  background: #757575;
+  border-radius: 30px;
+  position: absolute;
+  z-index: 99;
+  cursor: pointer;
+  box-shadow: 0 0 3px 0 #000;
+}
+#modalInclude {
+  display: none;
+}
+#contWrap {
+  width: 100%;
+  height: 340px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+</style>
+<link rel="stylesheet" href="../../common/css/rwdlayout.css">
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>jQuery TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">「もっと見る」ボタンで画像を順々に読み込む</h2>
+
+<div id="wrapper">
+
+<div id="imgLoad"></div>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script src="../../common/js/common.js"></script>
+<script>
+var imgLoadArea    = document.getElementById("imgLoad");
+var imgPath        = "./img/element015/photo";
+var imgType        = ".jpg";
+var largeImgPath   = "./img/element015/large/photo";
+var loadNumAtOnce  = 5;
+var maxNum         = 25;
+var fadeSpeed      = 1000;
+var moreBtnText    = "もっと見る";
+
+imgLoadArea.innerHTML = 
+  "<div id='loadArea'></div>"
+  + "<a href='javascript:void(0);' id='moreBtn'>"
+    + moreBtnText
+  + "</a>";
+
+var loadArea = document.getElementById("loadArea");
+var moreBtn  = document.getElementById("moreBtn");
+
+moreBtn.addEventListener("click", function() {
+  var loadImg   = loadArea.getElementsByTagName("img");
+  var imgLength = loadImg.length;
+  var loopCount = imgLength + loadNumAtOnce;
+
+  if (loopCount < maxNum) {
+    for (var i = 1; i <= loadNumAtOnce; i++) {
+      var a   = document.createElement("a");
+      a.href  = largeImgPath + (imgLength + i) + imgType;
+      a.target = "_blank";
+      a.className = "modalBtn";
+
+      var img = document.createElement("img");
+      img.src = imgPath + (imgLength + i) + imgType;
+
+      a.appendChild(img);
+      loadArea.appendChild(a);
+    }
+  } else if (loopCount >= maxNum) {
+    var overCount = maxNum - imgLength;
+
+    for (var i = 1; i <= overCount; i++) {
+      var a   = document.createElement("a");
+      a.href  = largeImgPath + (imgLength + i) + imgType;
+      a.target = "_blank";
+      a.className = "modalBtn";
+
+      var img = document.createElement("img");
+      img.src = imgPath + (imgLength + i) + imgType;
+
+      a.appendChild(img);
+      loadArea.appendChild(a);
+    }
+
+    moreBtn.remove();
+  }
+
+  var loadedImgs = loadArea.getElementsByTagName("img");
+  for (var i = 0; i < loadedImgs.length; i++) {
+    $( loadedImgs[i] ).animate({opacity:"1"}, fadeSpeed);
+  }
+
+  var modalBtn       = document.getElementsByClassName("modalBtn");
+  var overlayOpacity = 0.7;
+  var fadeTime       = 500;
+
+  for (var i = 0; i < modalBtn.length; i++) {
+    modalBtn[i].addEventListener("click", function(event) {
+      event.preventDefault();
+
+      var overlay = document.createElement("div");
+      overlay.id  = "modalOverlay";
+
+      var modalWindow       = document.createElement("div");
+      modalWindow.id        = "modalWindow";
+      modalWindow.innerHTML = 
+        "<div id ='modalClose' class='modalClose'>×</div><img src='" + this.href + "'></div>";
+
+
+      document.body.appendChild(overlay);
+      document.body.appendChild(modalWindow);
+
+      overlay.style.display = "block";
+      overlay.style.opacity = 0;
+
+      modalWindow.style.display = "block";
+      modalWindow.style.opacity = 0;
+      
+      overlay.style.height = window.innerHeight + "px";
+      $( overlay ).stop().animate({opacity:overlayOpacity}, fadeTime);
+
+      $( modalWindow ).stop().animate({opacity:"1"}, fadeTime);
+
+      window.addEventListener("resize", function() {
+        overlay.style.height = window.innerHeight;
+      }, false);
+
+      overlay.addEventListener("click", function() {
+        $( overlay ).stop().animate({opacity:"0"}, fadeTime, function() {
+          document.body.removeChild(overlay);
+        });
+
+        $( modalWindow ).stop().animate({opacity:"0"}, fadeTime, function() {
+          document.body.removeChild(modalWindow);
+        });
+      }, false);
+
+      modalClose = document.getElementById("modalClose");
+      modalClose.addEventListener("click", function() {
+        $( overlay ).stop().animate({opacity:"0"}, fadeTime, function() {
+          document.body.removeChild(overlay);
+        });
+
+        $( modalWindow ).stop().animate({opacity:"0"}, fadeTime, function() {
+          document.body.removeChild(modalWindow);
+        });
+      }, false);
+    }, false);
+  }
+}, false);
+
+moreBtn.click();
+</script>
+</body>
+</html>

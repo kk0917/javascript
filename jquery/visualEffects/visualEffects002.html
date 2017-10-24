@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+.ttpShow {
+  display: none;
+}
+#ttpPanel {
+  padding: 15px;
+  width: 200px;
+  text-align: left;
+  display: none;
+  background: #fff;
+  border: 3px solid #ccc;
+  position: absolute;
+  z-index: 99;
+}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>JavaScript TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">ツールチップ</h2>
+
+<div id="wrapper">
+
+<p>ジョバンニが学校の門を出るとき、同じ組の七八人は家へ帰らずカムパネルラをまん中にして<a href="#">校庭の隅すみの桜の木のところ<span class="ttpShow">ジョバンニは何べんも眼を拭いながら活字をだんだんひろいました。</span></a>に集まっていました。それはこんやの星祭に青いあかりをこしらえて川へ流す烏瓜を取りに行く相談らしかったのです。</p>
+
+<p>けれどもジョバンニは手を大きく振ってどしどし学校の門を出て来ました。すると町の家々ではこんやの銀河の祭りにいちいの葉の玉をつるしたりひのきの枝にあかりをつけたりいろいろ仕度をしているのでした。</p>
+
+<p>家へは帰らずジョバンニが<a href="#">町を三つ曲ってある大きな活版処<span class="ttpShow">ジョバンニはおじぎをすると扉をあけてさっきの計算台のところに来ました。</span></a>にはいってすぐ入口の計算台に居ただぶだぶの白いシャツを着た人におじぎをしてジョバンニは靴をぬいで上りますと、突き当りの大きな扉をあけました。中にはまだ昼なのに電燈がついてたくさんの輪転器がばたりばたりとまわり、きれで頭をしばったりラムプシェードをかけたりした人たちが、何か歌うように読んだり数えたりしながらたくさん働いて居りました。</p>
+
+<p>ジョバンニはすぐ入口から三番目の高い卓子に座った人の所へ行っておじぎをしました。その人はしばらく棚をさがしてから、「これだけ拾って行けるかね。」と云いながら、<a href="#">一枚の紙切れを渡しました<span class="ttpShow">ジョバンニは俄かに顔いろがよくなって威勢よくおじぎをすると台の下に置いた鞄をもっておもてへ飛びだしました。</span></a>。
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+$( "a:has(.ttpShow)" ).mouseover(function(e) {
+  $( "body" ).append( "<div id='ttpPanel'>" + $( this ).children( ".ttpShow" ).html() + "</div>" );
+  $( "#ttpPanel" ).css({ top: (e.pageY + 10) + "px", left: (e.pageX + 10) + "px" }).fadeIn( "fast" );
+}).mousemove(function(e) {
+  $( "#ttpPanel" ).css({ top: (e.pageY + 10) + "px", left: (e.pageX + 10) + "px" });
+}).mouseout(function() {
+  $( "#ttpPanel" ).remove();
+});
+</script>
+</body>
+</html>

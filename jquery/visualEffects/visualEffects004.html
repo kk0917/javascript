@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+#wrapper {
+	margin: 0 auto;
+	padding: 80px 0;
+	width: 800px;
+	text-align: center;
+}
+.delayLoad, .delayLoad2 {
+  margin: 0 auto 50px;
+  widows: 800px;
+  text-align: left;
+}
+.delayLoad > ul, .delayLoad2 > ul {
+  width: 100%;
+}
+.delayLoad > ul > li, .delayLoad2 > ul > li {
+  margin: 5px;
+  width: 150px;
+  float: left;
+  visibility: hidden;
+}
+.delayLoad > ul:before,
+.delayLoad > ul:after,
+.delayLoad2 > ul:before,
+.delayLoad2 > ul:after {
+	content: " ";
+	display: table;
+}
+.delayLoad > ul:after, .delayLoad2 > ul:after {clear: both;}
+.delayLoad > ul, .delayLoad2 > ul {*zoom: 1;}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>jQuery TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">画面に並べられた画像を順々にフェードイン表示する</h2>
+
+<div id="wrapper">
+
+<div class="delayLoad">
+  <h3>画像一つ一つを順番に表示</h3>
+  <ul>
+    <li><img src="./img/photo1.jpg" alt=""></li>
+    <li><img src="./img/photo2.jpg" alt=""></li>
+    <li><img src="./img/photo3.jpg" alt=""></li>
+    <li><img src="./img/photo4.jpg" alt=""></li>
+    <li><img src="./img/photo5.jpg" alt=""></li>
+    <li><img src="./img/photo6.jpg" alt=""></li>
+    <li><img src="./img/photo7.jpg" alt=""></li>
+    <li><img src="./img/photo8.jpg" alt=""></li>
+    <li><img src="./img/photo9.jpg" alt=""></li>
+    <li><img src="./img/photo10.jpg" alt=""></li>
+  </ul>
+</div><!-- /.delayLoad -->
+
+<div class="delayLoad2">
+  <h3>画像をランダムに表示</h3>
+  <ul>
+    <li><img src="./img/photo1.jpg" alt=""></li>
+    <li><img src="./img/photo2.jpg" alt=""></li>
+    <li><img src="./img/photo3.jpg" alt=""></li>
+    <li><img src="./img/photo4.jpg" alt=""></li>
+    <li><img src="./img/photo5.jpg" alt=""></li>
+    <li><img src="./img/photo6.jpg" alt=""></li>
+    <li><img src="./img/photo7.jpg" alt=""></li>
+    <li><img src="./img/photo8.jpg" alt=""></li>
+    <li><img src="./img/photo9.jpg" alt=""></li>
+    <li><img src="./img/photo10.jpg" alt=""></li>
+  </ul>
+</div><!-- /.delayLoad2 -->
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+// 1. 画像一つ一つを順番に表示 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 全ての画像要素を格納
+var setElem   = $( ".delayLoad > ul > li" );
+// リスト読み込み時の遅延時間
+var delayTime = 100;
+
+$( window ).on("load", function() {
+  // 各画像要素にフェードインを実行する
+  setElem.each(function(i) {
+    // 画像毎に、「インデックス番号 * 100ミリ秒」遅延させてフェードインする
+    $( this )
+      .delay(i * delayTime)
+      .css({visibility:"visible", opacity:"0"})
+      .animate({opacity:"1"}, 1000);
+  });
+});
+
+// 2. 画像をランダムに表示 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 宣言する変数は上記と同じ
+var setElem2   = $( ".delayLoad2 > ul > li" );
+var delayTime2 = 100;
+
+$( window ).on("load", function() {
+  function randomShow() {
+    // 画像数を上限としたランダム整数を生成
+    var elemLength = setElem2.length;
+    var randomSet  = Math.floor(Math.random() * elemLength);
+
+    // 画像要素をランダムに指定し、フェードイン処理
+    $( setElem2[randomSet] )
+      .css({visibility:"visible", opacity:"0"})
+      .animate({opacity:"1"}, 1000);
+    
+    // フェードイン処理済みの画像をリストから削除する
+    setElem2.splice(randomSet, 1);
+
+    // 画像要素が0になるまで遅延時間をはさみつつランダム表示を再帰処理する
+    if (elemLength > 0) {
+      setTimeout(function() {
+        randomShow();
+      }, delayTime2);
+    } else {
+      return false;
+    }
+  }
+
+  // ページロード時の初回実行（順番に表示...が完了したタイミングでランダム表示開始）
+  setTimeout(function() {
+    randomShow();
+  }, 1400);
+});
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+</script>
+</body>
+</html>

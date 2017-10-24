@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+.fadeBtn {
+  width: 200px;
+  height: 70px;
+  color: #000;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 70px;
+  text-align: center;
+  display: inline-block;
+  overflow: hidden;
+  background: #ddd;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 3px #555;
+}
+.cssAnim {
+  padding: 15px 0;
+  width: 150px;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+  display: inline-block;
+  overflow: hidden;
+  background-color: #cfcfcf;
+  border: 1px solid #999;
+  transition: all 0.3s linear;
+}
+.bgColor {
+  color: #fff;
+  background-color: #000;
+}
+.cssAnim2 {
+  padding: 15px 0;
+  margin-left: 10px;
+  width: 150px;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+  display: inline-block;
+  overflow: hidden;
+  background-color: #cfcfcf;
+  border: 1px solid #999;
+  transition: all 0.3s linear;
+}
+.bdrRadius {
+  border-radius: 15px;
+}
+.cssAnim3, .cssAnim4 {
+  margin: 0 10px;
+  padding: 15px 0;
+  width: 150px;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+  display: inline-block;
+  overflow: hidden;
+  background-color: #cfcfcf;
+  border: 1px solid #999;
+  transition: all 1s ease-in-out;
+}
+.rotateX {
+  transform: rotateX(360deg);
+}
+.rotateY {
+  transform: rotateY(360deg);
+}
+.cssAnim5 {
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  overflow: hidden;
+  background-color: #ccc;
+  border: 2px solid #333;
+  position: relative;
+}
+.cssAnim5 img {
+  top: 0;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  transition: all 0.3s linear;
+}
+.imgScale img {
+  transform: scale(1.5);
+}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>jQuery TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">様々なアニメーション</h2>
+
+<div id="wrapper">
+
+<a href="#" class="fadeBtn">BUTTON</a><br><br>
+<a href="#" class="cssAnim">BUTTON</a>
+<a href="#" class="cssAnim2">BUTTON</a>
+<a href="#" class="cssAnim3">BUTTON</a>
+<a href="#" class="cssAnim4">BUTTON</a><br><br>
+<a href="#" class="cssAnim5">
+  <img src="./img/sample.jpg" alt="">
+</a>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+$( ".fadeBtn" ).hover(function() {
+  $( this ).stop().animate({opacity: '0.5', fontSize: '22px'}, 300);
+}, function() {
+  $( this ).stop().animate({opacity: '1', fontSize: '18px'}, 300);
+});
+
+$( ".cssAnim" ).hover(function() {
+  $( this ).addClass( "bgColor" );
+}, function() {
+  $( this ).removeClass( "bgColor" );
+});
+
+$( ".cssAnim2" ).hover(function() {
+  $( this ).addClass( "bdrRadius" );
+}, function() {
+  $( this ).removeClass( "bdrRadius" );
+});
+
+$( ".cssAnim3" ).hover(function() {
+  $( this ).addClass( "rotateX" );
+}, function() {
+  $( this ).removeClass( "rotateX" );
+});
+
+$( ".cssAnim4" ).hover(function() {
+  $( this ).addClass( "rotateY" );
+}, function() {
+  $( this ).removeClass( "rotateY" );
+});
+
+$( ".cssAnim5" ).hover(function() {
+  $( this ).addClass( "imgScale" );
+}, function() {
+  $( this ).removeClass( "imgScale" );
+});
+</script>
+</body>
+</html>

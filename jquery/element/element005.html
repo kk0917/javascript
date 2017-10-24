@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+#wrapper {
+	padding: 80px 0;
+	width: 100%;
+	text-align: center;
+}
+.switch {
+  visibility: hidden;
+}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>jQuery TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">ウィンドウサイズによって読み込む画像を切り替える</h2>
+
+<div id="wrapper">
+
+<img src="./img/photo_sp.jpg" alt="" class="switch">
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+var setImg      = $( ".switch" ); // 切り替える対象となるimg要素
+var namePc      = "_pc";          // PC用の識別子
+var nameSp      = "_sp";          // スマートフォン用の識別子
+var switchWidth = 640;            // 画像切り替え用ブレークポイント
+
+// このサンプルでは画像要素は１つだが、
+// 実際の運用では切り替え画像が複数あることを想定しeach()で処理
+setImg.each(function() {
+  var selfImg = $( this );
+
+  function switchImg() {
+    // ブレークポイントよりウィンドウ幅が大きい場合はPC用画像を表示
+    // それ以外はSP用画像を表示
+    if (window.innerWidth > switchWidth) {
+      selfImg.attr("src", selfImg.attr("src").replace(nameSp, namePc));
+    } else {
+      selfImg.attr("src", selfImg.attr("src").replace(namePc, nameSp));
+    }
+  }
+
+  $( window ).on("load orientationchange resize", function() {
+    // ウィンドウ幅の判別動作を各イベント内で実行
+    switchImg();
+
+    // 画像の切り替えが終了してから画像を表示させる
+    setTimeout(function() {
+      setImg.css({visibility:"visible"});
+    }, 500);
+  });
+});
+</script>
+</body>
+</html>

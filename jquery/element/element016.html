@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow"/>
+<meta name="viewport" content="width=device-width">
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+/* スライドパネル全体を囲うブロック要素のスタイル */
+.slidePanel, .slidePanel2 {
+  margin: 0 auto;
+  width: 600px;
+  height: 200px;
+  text-align: left;
+  position: relative;
+}
+/* スライドリストを内包するブロック要素のスタイル */
+.slideWrap {
+  width: 600px;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+/* スライドリストのスタイル */
+.slidePanel ul,
+.slidePanel2 ul {
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+.slidePanel ul li,
+.slidePanel2 ul li {
+  padding: 0 10px;
+  width: 200px;
+  text-align: center;
+  float: left;
+  display: inline;
+  box-sizing: border-box;
+}
+.slidePanel ul li p,
+.slidePanel2 ul li p {
+  padding: 5px 0;
+  font-size: 12px;
+}
+/* ナビゲーションのスタイル */
+.slidePanel .btnPrev,
+.slidePanel .btnNext,
+.slidePanel2 .btnPrev,
+.slidePanel2 .btnNext {
+  top: 45px;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  transition: all 0.2s ease-in-out;
+}
+.slidePanel .btnPrev,
+.slidePanel2 .btnPrev {
+  left: -35px;
+  background: transparent url(./img/element016/btnPrev.png) no-repeat top left;
+}
+.slidePanel .btnNext,
+.slidePanel2 .btnNext {
+  right: -35px;
+  background: transparent url(./img/element016/btnNext.png) no-repeat top left;
+}
+.slidePanel .btnPrev:hover,
+.slidePanel .btnNext:hover,
+.slidePanel2 .btnPrev:hover,
+.slidePanel2 .btnNext:hover {
+  opacity: 0.6;
+}
+
+.pagiNation {
+  bottom: 15px;
+  left: 0;
+  width: 100%;
+  height: 15px;
+  text-align: center;
+  position: absolute;
+}
+.pagiNation a {
+  margin: 0 5px;
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  overflow: hidden;
+  background: #aaa;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+}
+.pagiNation a:hover {
+  opacity: 0.6;
+}
+</style>
+<link rel="stylesheet" href="../../common/css/rwdlayout.css">
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>jQuery TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">横向きのスライドパネルUIを作る</h2>
+
+<div id="wrapper">
+
+<div class="slidePanel">
+  <ul>
+    <li><a href="#"><img src="./img/element016/photo1.jpg" width="180" height="120" alt=""></a><p>キャプション【1】</p></li>
+    <li><a href="#"><img src="./img/element016/photo2.jpg" width="180" height="120" alt=""></a><p>キャプション【2】</p></li>
+    <li><a href="#"><img src="./img/element016/photo3.jpg" width="180" height="120" alt=""></a><p>キャプション【3】</p></li>
+    <li><a href="#"><img src="./img/element016/photo4.jpg" width="180" height="120" alt=""></a><p>キャプション【4】</p></li>
+    <li><a href="#"><img src="./img/element016/photo5.jpg" width="180" height="120" alt=""></a><p>キャプション【5】</p></li>
+    <li><a href="#"><img src="./img/element016/photo6.jpg" width="180" height="120" alt=""></a><p>キャプション【6】</p></li>
+    <li><a href="#"><img src="./img/element016/photo7.jpg" width="180" height="120" alt=""></a><p>キャプション【7】</p></li>
+    <li><a href="#"><img src="./img/element016/photo8.jpg" width="180" height="120" alt=""></a><p>キャプション【8】</p></li>
+  </ul>
+</div>
+
+<div class="slidePanel2">
+  <ul>
+    <li><a href="#"><img src="./img/element016/photo1.jpg" width="180" height="120" alt=""></a><p>キャプション【1】</p></li>
+    <li><a href="#"><img src="./img/element016/photo2.jpg" width="180" height="120" alt=""></a><p>キャプション【2】</p></li>
+    <li><a href="#"><img src="./img/element016/photo3.jpg" width="180" height="120" alt=""></a><p>キャプション【3】</p></li>
+    <li><a href="#"><img src="./img/element016/photo4.jpg" width="180" height="120" alt=""></a><p>キャプション【4】</p></li>
+    <li><a href="#"><img src="./img/element016/photo5.jpg" width="180" height="120" alt=""></a><p>キャプション【5】</p></li>
+    <li><a href="#"><img src="./img/element016/photo6.jpg" width="180" height="120" alt=""></a><p>キャプション【6】</p></li>
+    <li><a href="#"><img src="./img/element016/photo7.jpg" width="180" height="120" alt=""></a><p>キャプション【7】</p></li>
+    <li><a href="#"><img src="./img/element016/photo8.jpg" width="180" height="120" alt=""></a><p>キャプション【8】</p></li>
+  </ul>
+</div>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script src="../../common/js/common.js"></script>
+<script>
+(function() {
+  var setElm     = $( ".slidePanel" );
+  var slideSpeed = 500;
+
+  setElm.each(function() {
+    var self      = $( this );
+    var selfWidth = self.innerWidth();
+    var selfUl    = self.find( "ul" );
+    var selfLi    = selfUl.find( "li" );
+    var listWidth = selfLi.outerWidth();
+    var listCount = selfLi.length;
+    var slideWidth = listWidth * listCount;
+
+    selfUl.css({width:slideWidth});
+
+    if (selfWidth < slideWidth) {
+      self.append(
+        "<a href='javascript:void(0);' class='btnPrev'></a>"
+        + "<a href='javascript:void(0);' class='btnNext'></a>").find( "ul" ).wrapAll( "<div class='slideWrap'>" );
+
+      var btnNext = self.find( ".btnNext" );
+      var btnPrev = self.find( ".btnPrev" );
+
+      btnNext.click(function() {
+        selfUl.not( ":animated" ).animate({left:"-="+(listWidth)}, slideSpeed, function () {
+          btnSet();
+        })
+      });
+
+      btnPrev.click(function() {
+        selfUl.not( ":animated" ).animate({left:"+="+(listWidth)}, slideSpeed, function() {
+          btnSet();
+        });
+      });
+
+      function btnSet() {
+        var ulLeft = parseInt(selfUl.css( "left" ));
+        var maskWidth = selfWidth - slideWidth;
+
+        if (ulLeft === 0) {
+          btnNext.css({display:"block"});
+          btnPrev.css({display:"none"});
+        } else if (ulLeft <= maskWidth) {
+          btnNext.css({display:"none"});
+          btnPrev.css({display:"block"});
+        } else {
+          btnNext.css({display:"block"});
+          btnPrev.css({display:"block"});
+        }
+      }
+
+      btnSet();
+    }
+  });
+})();
+
+(function() {
+  var setElm = $( ".slidePanel2" );
+  slideSpeed = 500;
+
+  setElm.each(function() {
+    var self  = $( this );
+    var selfWidth  = self.innerWidth();
+    var selfUl     = self.find( "ul" );
+    var selfLi     = selfUl.find( "li" );
+    var listWidth  = selfLi.outerWidth();
+    var listCount  = selfLi.length;
+    var slideWidth = listWidth * listCount;
+    var moveCount  = Math.round(selfWidth / listWidth);
+    var wrapSplit  = Math.ceil(listCount / moveCount);
+
+    selfUl.css({width:slideWidth});
+
+    if (selfWidth < slideWidth) {
+      self.append(
+        '<a href="javasctipt:void(0);" class="btnPrev"></a>'
+        + '<a href="javascript:void(0);" class="btnNext"></a>'
+        + '<div class="pagiNation"></a>'
+      )
+      .find('ul').wrapAll('<div class="slideWrap">');
+
+      var pagination = self.find('.pagiNation');
+
+      $.each(new Array(wrapSplit), function(i) {
+        pagination.append(
+          '<a href="javascript:void(0);" class="pn' + (i + 1) + '"></a>'
+        );
+      });
+
+      var pnPoint = pagination.find('a');
+      var pnFirst = pagination.find('a:first');
+      var pnLast  = pagination.find('a:last');
+      var pnCount = pagination.find('a').length;
+
+      pnFirst.addClass('pnActive');
+
+      pnPoint.click(function() {
+        if (!(selfUl.is(':animated'))) {
+          var showCont = pnPoint.index(this);
+
+          selfUl.animate({left:'-'+((listWidth*moveCount) * showCont)}, slideSpeed);
+
+          pnPoint.removeClass('pnActive');
+          $(this).addClass('pnActive');
+        }
+      });
+
+      var btnNext = self.find('.btnNext');
+      var btnPrev = self.find('.btnPrev');
+
+      btnNext.click(function() {
+        if (!(selfUl.is(':animated'))) {
+          var setActive = pagination.find('.pnActive');
+          var pnIndex   = pnPoint.index(setActive);
+          var pnNum     = pnIndex + 1;
+
+          if (pnCount == pnNum) {
+            pnFirst.click()
+          } else {
+            setActive.next('a').click();
+          }
+        }
+      });
+
+      btnPrev.click(function() {
+        if (!(selfUl.is(':animated'))) {
+          var setActive = pagination.find('pnActive');
+          var pnIndex   = pnPoint.index(setActive);
+          var pnNum     = pnIndex + 1;
+
+          if (1 === pnNum) {
+            pnLast.click();
+          } else {
+            setActive.prev('a').click();
+          }
+        }
+      });
+    }
+  });
+})();
+
+// var slidePanel = document.getElementsByClassName("slidePanel");
+// var slideSpeed = 500;
+
+// for (var i = 0; i < slidePanel.length; i++) {
+//   var width      = slidePanel[i].clientWidth;
+//   var ul         = slidePanel[i].getElementsByTagName("ul");
+//   var li         = ul[i].getElementsByTagName("li");
+//   var liWidth    = li[i].offsetWidth;
+//   var slideWidth = liWidth * li.length;
+  
+//   ul[i].style.width = slideWidth + "px";
+  
+//   if (width < slideWidth) {
+//     var btnPrev = document.createElement("a");
+//     btnPrev.href = "javascript:void(0)";
+//     btnPrev.className = "btnPrev";
+
+//     var btnNext = document.createElement("a");
+//     btnNext.href = "javascript:void(0)";
+//     btnNext.className = "btnNext";
+
+//     slidePanel[i].appendChild(btnPrev);
+//     slidePanel[i].appendChild(btnNext);
+
+//     var div = document.createElement("div");
+//     div.className = "slideWrap";
+//     slidePanel[i].insertBefore(div, ul[i]);
+//     div.appendChild(ul[i]);
+    
+//     btnNext.addEventListener("click", function() {
+//       $( ul[i] ).not( ":animated" ).animate({left:"-="+(liWidth)}, slideSpeed, btnSet());
+//     }, false);
+
+//     btnPrev.addEventListener("click", function() {
+//       $( ul[i] ).not( ":animated" ).animate({left:"+="+(liWidth)}, slideSpeed, btnSet());
+//     });
+
+//     function btnSet() {
+//       var ulStyleLeft = ul[0].clientLeft;
+//       var maskWidth   = width - slideWidth;
+
+//       if (ulStyleLeft === 0) {
+//         btnNext.style.display = "block";
+//         btnPrev.style.display = "none";
+//       } else if (ulStyleLeft <= maskWidth) {
+//         btnNext.style.display = "none";
+//         btnPrev.style.display = "block";
+//       } else {
+//         btnNext.style.display = "block";
+//         btnPrev.style.display = "block";
+//       }
+//     }
+
+//     btnSet();
+//   }
+// };
+</script>
+</body>
+</html>

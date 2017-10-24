@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+p {
+  padding: 20px;
+  margin: 10px 0;
+  width: 400px;
+  background-color: #eeeeff;
+}
+table {
+  border-collapse: collapse;
+}
+td, th {
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+tr:nth-child(2n+1) {
+  background-color: #eeffee;
+}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>JavaScript TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">要素を削除する</h2>
+
+<div id="wrapper">
+
+<p>This is paragraph one</p>
+<p>This is paragraph two</p>
+<p>This is paragraph three</p>
+<p>This is paragraph four</p>
+<p>This is paragraph five</p>
+
+<table id="mixed">
+  <tr>
+    <th>Value one</th><th>Value two</th><th>Value three</th>
+  </tr>
+</table>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script>
+window.onload = function() {
+  // <p>要素の削除
+  var paras = document.getElementsByTagName("p");
+
+  for (var i = 0; i < paras.length; i++) {
+    paras[i].onclick = pruneparagraph;
+  }
+
+  // テーブル行の削除
+  var values = new Array(3);
+  values[0]  = [123.45, "apple", true];
+  values[1]  = [65, "banana", false];
+  values[2]  = [1034.99, "cherry", false];
+
+  var mixed = document.getElementById("mixed");
+
+  var tbody = document.createElement("tbody"); // IE 7では<tbody>が必要;
+
+  for (var i = 0; i < values.length; i++) {
+    var tr = document.createElement("tr");
+
+    for (var j = 0; j < values[i].length; j++) {
+      var td   = document.createElement("td");
+      var text = document.createTextNode(values[i][j]);
+      td.appendChild(text);
+      tr.appendChild(td);
+    }
+
+    tr.onclick = prunerow;
+    tbody.appendChild(tr);
+    mixed.appendChild(tbody);
+  }
+};
+
+function pruneparagraph() {
+  var parent = this.parentNode;
+  parent.removeChild(this);
+}
+
+function prunerow() {
+  var parent = this.parentNode;
+  var oldrow = parent.removeChild(this);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+#wrapper {
+	margin: 0 auto;
+	padding: 80px 0;
+	width: 100%;
+	text-align: center;
+}
+p {
+	padding: 0 30px;
+	font-weight: bold;
+	text-shadow: 0 0 3px #fff;
+}
+.portrait {
+  background: #6666ff;
+}
+.landscape {
+  background: #ff6666;
+}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>jQuery TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">スマートフォンでの縦向き・横向きを判別する</h2>
+
+<div id="wrapper">
+
+<p>この画面はスマートフォンでの縦向き・横向きを判別するサンプルです。</p>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+if (navigator.userAgent.indexOf("iPhone") > 0 ||
+    navigator.userAgent.indexOf("iPad") > 0 || 
+    navigator.userAgent.indexOf("Android") > 0) {
+  
+  $( window ).on("load orientationchange resize", function() {
+    if (window.innerWidth < window.innerHeight) {
+      $( "body" ).addClass( "portrait" ).removeClass( "landscape" );
+    } else {
+      $( "body" ).addClass( "landscape" ).removeClass( "portrait" );
+    }
+  });
+}
+</script>
+</body>
+</html>

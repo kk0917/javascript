@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+a:link,a:visited,a:active,a:hover { text-decoration: none; color: #000;}
+
+#wrapper {
+	margin: 0 auto;
+	padding: 40px 0;
+	width: 800px;
+	text-align: left;
+}
+
+ul {
+	padding-bottom: 30px;
+	width: 100%;
+	text-align: center;
+}
+
+ul li {
+	margin: 0 10px;
+	display: inline-block;
+	border: #555 1px solid;
+}
+
+ul li a {
+	padding: 10px 40px;
+	display: inline-block;
+	overflow: hidden;
+	text-align: left;
+	vertical-align: bottom;
+	border: #fff 1px solid;
+	background: #bbb;
+	background: linear-gradient(to bottom,  #fff 50%,#bbb 100%);
+}
+
+ul li a:hover {
+	background: #fff;
+}
+
+ul li a.active {
+	color: #ff0000;
+	font-weight: bold;
+	background: #fff;
+}
+
+p {
+	padding-bottom: 1em;
+	font-size: 1em;
+	line-height: 1.8em;
+	text-align: left;
+}
+body {
+  opacity: 0;
+}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>jQuery TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">ページ遷移時にフェードアニメーションをつける</h2>
+
+<div id="wrapper">
+
+<ul>
+<li><a href="visualEffects003-1.html">≫ PAGE1</a></li>
+<li><a href="visualEffects003-2.html" class="active">≫ PAGE2</a></li>
+<li><a href="visualEffects003-3.html">≫ PAGE3</a></li>
+</ul>
+
+<p>牧場のうしろはゆるい丘になって、その黒い平らな頂上は、北の大熊星の下に、ぼんやりふだんよりも低く連って見えました。</p>
+
+<p>ジョバンニは、もう露の降りかかった小さな林のこみちを、どんどんのぼって行きました。まっくらな草や、いろいろな形に見えるやぶのしげみの間を、その小さなみちが、一すじ白く星あかりに照らしだされてあったのです。草の中には、ぴかぴか青びかりを出す小さな虫もいて、ある葉は青くすかし出され、ジョバンニは、さっきみんなの持って行った烏瓜のあかりのようだとも思いました。</p>
+
+<p>そのまっ黒な、松や楢の林を越えると、俄かにがらんと空がひらけて、天の川がしらしらと南から北へ亘っているのが見え、また頂の、天気輪の柱も見わけられたのでした。つりがねそうか野ぎくかの花が、そこらいちめんに、夢の中からでも薫りだしたというように咲き、鳥が一疋、丘の上を鳴き続けながら通って行きました。</p>
+
+<p>ジョバンニは、頂の天気輪の柱の下に来て、どかどかするからだを、つめたい草に投げました。</p>
+
+<p>町の灯は、暗の中をまるで海の底のお宮のけしきのようにともり、子供らの歌う声や口笛、きれぎれの叫び声もかすかに聞えて来るのでした。風が遠くで鳴り、丘の草もしずかにそよぎ、ジョバンニの汗でぬれたシャツもつめたく冷されました。ジョバンニは町のはずれから遠く黒くひろがった野原を見わたしました。</p>
+
+<p>そこから汽車の音が聞えてきました。その小さな列車の窓は一列小さく赤く見え、その中にはたくさんの旅人が、苹果を剥いたり、わらったり、いろいろな風にしていると考えますと、ジョバンニは、もう何とも云えずかなしくなって、また眼をそらに挙げました。</p>
+
+<p>あああの白いそらの帯がみんな星だというぞ。</p>
+
+<p>ところがいくら見ていても、そのそらはひる先生の云ったような、がらんとした冷いとこだとは思われませんでした。それどころでなく、見れば見るほど、そこは小さな林や牧場やらある野原のように考えられて仕方なかったのです。そしてジョバンニは青い琴の星が、三つにも四つにもなって、ちらちら瞬き、脚が何べんも出たり引っ込こんだりして、とうとう蕈のように長く延びるのを見ました。またすぐ眼の下のまちまでがやっぱりぼんやりしたたくさんの星の集りか一つの大きなけむりかのように見えるように思いました。</p>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+// ページロード時にページ全体となるbody要素をフェードイン
+$( "body" ).animate({opacity:"1"}, 1000);
+
+// リンクボタンクリック時のデフォルト処理をキャンセル
+$( "a" ).click(function(event) {
+	event.preventDefault();
+
+	// クリックしたリンクボタンのhref属性値を変数に格納
+	var selfPass = $( this ).attr("href");
+
+	// ページ遷移前のページ全体body要素のフェードアウト
+	$( "body" ).animate({opacity:"0"}, 1000, function() {
+		// リンク先パスをセットしページ遷移実行
+		location.href = selfPass;
+
+		// ブラウザ戻るボタンでのホワイトアウトを防ぐため1秒ほど時間を開けてから画面全体のフェードイン
+		setTimeout(function() {
+			$( "body" ).animate({opacity:"1"});
+		}, 1000);
+	});
+});
+</script>
+</body>
+</html>

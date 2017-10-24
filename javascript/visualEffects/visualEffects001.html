@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>JavaScript TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">画像をフェードアウト／フェードインで切り替える（１）</h2>
+
+<div id="wrapper">
+
+<img id="mainVisual" src="./img/photo1.jpg" alt="photo1">
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script>
+(function() {
+  var mainVisual    = document.getElementById("mainVisual");
+  var imageNum      = 5
+  var count         = 1;
+  var changeOpacity = 1;
+
+  setInterval(fadeOut, 5000);
+
+  function fadeOut() {
+    changeOpacity -= 0.025;
+    mainVisual.style.opacity = changeOpacity;
+
+    if (changeOpacity < 0) {
+      changeOpacity = 0;
+      changeImage();
+      fadeIn();
+      return;
+    } else {
+      setTimeout(fadeOut, 25);
+    }
+  }
+
+  function changeImage() {
+    count++;
+    if (count > imageNum) {
+      count = 1;
+    }
+
+    mainVisual.src = "./img/photo" + count + ".jpg";
+  }
+
+  function fadeIn() {
+    changeOpacity += 0.025;
+    mainVisual.style.opacity = changeOpacity;
+
+    if (changeOpacity > 1) {
+      changeOpacity = 1
+      return;
+    } else {
+      setTimeout(fadeIn, 25);
+    }
+  }
+})();
+</script>
+</body>
+</html>

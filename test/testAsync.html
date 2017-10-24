@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Test Suite</title>
+  <style>
+    #results li.pass { color: green; }
+    #results li.fail { color: red; }
+  </style>
+</head>
+<body>
+  <ul id="results"></ul>
+
+<script>
+(function() {
+  var queue  = [];
+  var paused = false;
+  var results;
+
+  this.test = function(name, fn) {
+    queue.push(function() {
+      results = document.getElementById("results");
+      results = assert(true, name).appendChild(document.createElement("ul"));
+
+      fn();
+    });
+
+    runTest();
+  };
+
+  this.pause = function() {
+    paused = true;
+  };
+
+  this.resume = function() {
+    paused = false;
+    setTimeout(runTest, 1);
+  };
+
+  function runTest() {
+    if (!paused && queue.length) {
+      (queue.shift())();
+
+      if (!paused) {
+        resume();
+      }
+    }
+  }
+
+  this.assert = function assert(value, desc) {
+    var li       = document.createElement("li");
+    li.className = value ? "pass" : "fail";
+    li.appendChild(document.createTextNode(desc));
+    results.appendChild(li);
+
+    if (!value) {
+      li.parentNode.parentNode.className = "fail";
+    }
+
+    return li;
+  };
+})();
+
+test("非同期テスト #1", function() {
+  pause();
+  setTimeout(function() {
+    assert(true, "第一テスト完了");
+    resume();
+  }, 1000);
+});
+
+test("非同期テスト #2", function() {
+  pause();
+  setTimeout(function() {
+    assert(true, "第二テスト完了");
+    resume();
+  }, 1000);
+});
+</script>
+</body>
+</html>

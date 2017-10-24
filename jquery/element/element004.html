@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+#wrapper {
+	padding: 80px 0;
+	width: 100%;
+	text-align: center;
+}
+
+#randomShow {
+  margin: 0 auto;
+  width: 450px;
+  height: 300px;
+}
+.setView1 {
+  background: url(./img/photo1.jpg) no-repeat left top;
+  border: 10px solid #ff6666;
+}
+.setView2 {
+  background: url(./img/photo2.jpg) no-repeat left top;
+  border: 10px solid #6666ff;
+}
+.setView3 {
+  background: url(./img/photo3.jpg) no-repeat left top;
+  border: 10px solid #66ff66  ;
+}
+.setView4 {
+  background: url(./img/photo4.jpg) no-repeat left top;
+  border: 10px solid #ffff66;
+}
+.setView5 {
+  background: url(./img/photo5.jpg) no-repeat left top;
+  border: 10px solid #66ffcc;
+}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>jQuery TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">画像をランダムで表示する</h2>
+
+<div id="wrapper">
+
+<div id="randomShow"></div>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script>
+// ランダムで表示する画像の最大数
+var maxNum =5;
+// 1 ~ 5までのランダムな整数を生成
+var randomNum = Math.floor(Math.random() * maxNum) + 1;
+
+// img要素のsrcに画像パスを設定
+// $( "#randomShow" ).attr("src", "./img/photo" + randomNum + ".jpg");
+
+// 乱数から生成した整数を使ってクラスを切り替える
+$( "#randomShow" ).addClass("setView" + randomNum);
+</script>
+</body>
+</html>

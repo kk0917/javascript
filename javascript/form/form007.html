@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+[role="alert"] {
+  background-color: #ffcccc;
+  font-weight: bold;
+  padding: 5px;
+  border: 1px dashed #000;
+}
+div#form {
+  margin: 10px 0;
+  padding: 5px;
+  width: 400px;
+  background-color: #ffffff;
+}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>JavaScript TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">不正なフォームフィールドをハイライト表示する</h2>
+
+<div id="wrapper">
+
+<form id="testform">
+  <div id="form">
+    <label for="firstfield">*First Field:</label><br>
+    <input type="text" id="firstfield" name="firstfield" aria-required="true">
+  </div>
+  <div>
+    <label for="secondfield">Second Field:</label><br>
+    <input type="text" id="secondfield" name="secondfield">
+  </div>
+  <div>
+    <label for="thirdfield">Third Field (numeric):</label><br>
+    <input type="text" id="thirdfield" name="thirdfield">
+  </div>
+  <div>
+    <label for="fourthfield">Fourth Field:</label><br>
+    <input type="text" id="fourthfield" name="fourthfield">
+  </div>
+  <input type="submit" value="送信">
+</form>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script>
+document.getElementById("thirdfield").onchange = validateField;
+document.getElementById("firstfield").onblur   = mandatoryField;
+document.getElementById("testform").onsubmit   = finalCheck;
+
+function removeAlert() {
+  var msg = document.getElementById("msg");
+
+  if (msg) {
+    document.getElementById("testform").removeChild(msg);
+  }
+}
+
+function resetField(elem) {
+  elem.parentNode.setAttribute("style", "background-color: #ffffff");
+  var valid = elem.getAttribute("aria-invalid");
+
+  if (valid) {
+    elem.removeAttribute("aria-invalid");
+  }
+}
+
+function badField(elem) {
+  elem.parentNode.setAttribute("style", "background-color: #ffeeee");
+  elem.setAttribute("aria-invalid", "true");
+}
+
+function generateAlert(txt) {
+  // 新しいテキスト要素と<div>要素を作成し、ARIA、ID、クラスの値を設定する
+  var txtNd = document.createTextNode(txt);
+  msg       = document.createElement("div");
+  msg.setAttribute("role", "alert");
+  msg.setAttribute("id", "msg");
+  msg.setAttribute("class", "alert");
+
+  // テキストを<div>に追加し、<div>をドキュメントに追加する
+  msg.appendChild(txtNd);
+  document.getElementById("testform").appendChild(msg);
+}
+
+function validateField() {
+  // 既存のアラートは値に関係なく削除する
+  removeAlert();
+
+  // 数字をチェックする
+  if (!isNaN(parseFloat(this.value))) {
+    resetField(this);
+  } else {
+    badField(this);
+    generateAlert("You entered an invalid value in Third Field." + "Only numeric values such as 105 or 3.54 are allowed");
+  }
+}
+
+function mandatoryField() {
+  // 既存のアラートを削除する
+  removeAlert();
+
+  // 値をチェックする
+  if (this.value.length > 0) {
+    resetField(this);
+  } else {
+    badField(this);
+    generateAlert("You must enter a value into First Field");
+  }
+}
+
+function finalCheck() {
+  removeAlert();
+
+  var fields = document.querySelectorAll("[aria-invalid='true']");
+
+  if (fields.length > 0) {
+    generateAlert("You have incorrect fields entries that must be" + " fixed before you can submit this form");
+    return false;
+  }
+}
+</script>
+</body>
+</html>

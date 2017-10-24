@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+#div1 {
+  width: 50%;
+  height: 50px;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #ffff00;
+}
+.divclass {
+  width: 50%;
+  height: 50px;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #ccffcc;
+}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>JavaScript TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">既存の要素の後に要素を挿入する</h2>
+
+<div id="wrapper">
+
+<div id="div1">
+  <p>Click me to add new element</p>
+</div>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script>
+window.onload = function() {
+  document.getElementById("div1").onclick = addDiv;
+};
+
+function addDiv() {
+  // 親要素を取得する
+  var parent = this.parentNode;
+
+  // 新しい<div>要素を作成する
+  var newDiv       = document.createElement("div");
+  newDiv.className = "divclass";
+  newDiv.innerHTML = "<p>I'm here, I'm in the page</p>";
+
+  // ページに追加する
+  parent.appendChild(newDiv);
+}
+</script>
+</body>
+</html>

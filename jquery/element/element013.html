@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow"/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<link rel="stylesheet" href="../../common/css/chapterlist.css">
+<style>
+/* ------------------------------
+   DESIGN/LAYOUT ELEMENTS
+------------------------------ */
+a:link,a:visited,a:active,a:hover { text-decoration: none; color: #000;}
+
+#wrapper {
+	padding: 50px 0;
+	width: 100%;
+	text-align: center;
+}
+
+/* ------------------------------
+   CHAPTER ELEMENTS
+------------------------------ */
+/* タブUI全体を囲うブロック要素のスタイル */
+#tabAccordion {
+  margin: 0 auto;
+  width: 800px;
+  height: 400px;
+  border: 1px solid #aaa;
+  position: relative;
+}
+/* タブUI全体のスタイル */
+#tabAccordion dl {
+  top: 0;
+  left: 0;
+  width: 800px;
+  position: absolute;
+}
+/* タブUIのボタンのスタイル */
+#tabAccordion dl dt {
+  top: 0;
+  left: 0;
+  width: 200px;
+  position: absolute;
+  background: #ebebeb;
+  background: linear-gradient(to bottom, #ebebeb 45%, #d8d8d8 55%);
+  border-bottom: 1px solid #aaa;
+  border-right: 1px solid #aaa;
+  box-sizing: border-box;
+}
+#tabAccordion dl:nth-child(2) dt {
+  left: 200px;
+}
+#tabAccordion dl:nth-child(3) dt {
+  left: 400px;
+}
+#tabAccordion dl:nth-child(4) dt {
+  left: 600px;
+  border-right: none;
+}
+#tabAccordion dl dt a {
+  height: 50px;
+  font-weight: bold;
+  line-height: 50px;
+  display: block;
+  text-align: center;
+  transition: all 0.2s linear;
+}
+#tabAccordion dl dt.btnAcv {
+  background: #fff;
+  border-bottom: none;
+}
+#tabAccordion dl dt:hover > a {
+  background: #fff;
+}
+/* タブUI内の表示コンテンツのスタイル */
+#tabAccordion dl dd {
+  top: 50px;
+  left: 0;
+  padding: 30px;
+  width: 100%;
+  height: 350px;
+  text-align: left;
+  overflow-y: auto;
+  display: none;
+  position: absolute;
+  box-sizing: border-box;
+}
+#tabAccordion dl dd p {
+  padding-bottom: 2em;
+  line-height: 2em;
+}
+
+/* ------------------------------
+   MEDIAQUERIES LAYOUT
+------------------------------ */
+@media only screen and (max-width: 800px) {
+	#tabAccordion {
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	#tabAccordion dl {
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	#tabAccordion dl dt {
+		width: 25%;
+	}
+
+	#tabAccordion dl:nth-child(2) dt {
+		left: 25%;
+	}
+
+	#tabAccordion dl:nth-child(3) dt {
+		left: 50%;
+	}
+
+	#tabAccordion dl:nth-child(4) dt {
+		left: 75%;
+	}
+}
+
+/* ------------------------------
+   MEDIAQUERIES[SP]LAYOUT
+------------------------------ */
+@media only screen and (max-width: 768px) {
+	#tabAccordion {
+		width: 100%;
+		height: auto;
+		border: none;
+	}
+
+	#tabAccordion dl {
+		top: auto;
+		left: auto;
+		width: 100%;
+		position: relative;
+	}
+
+	#tabAccordion dl dt {
+		top: auto;
+		left: auto;
+		width: 100%;
+		position: relative;
+		border-bottom: #aaa 1px solid;
+		border-right: none;
+	}
+
+	#tabAccordion dl:first-child dt {
+		border-top: #aaa 1px solid;
+	}
+
+	#tabAccordion dl:nth-child(2) dt,
+	#tabAccordion dl:nth-child(3) dt,
+	#tabAccordion dl:nth-child(4) dt {
+		left: auto;
+	}
+
+	#tabAccordion dl dt.btnAcv {
+		border-bottom: #aaa 1px solid;
+	}
+
+	#tabAccordion dl dd {
+		top: auto;
+		left: auto;
+		padding: 20px;
+		width: 100%;
+		height: auto;
+		position: relative;
+		border-bottom: #aaa 1px solid;
+	}
+}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>jQuery TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">タブとアコーディオンを切り替えるUIを作成する</h2>
+
+<div id="wrapper">
+
+<div id="tabAccordion">
+  <dl>
+    <dt><a href="javascript:void(0);">MENU [１]</a></dt>
+    <dd>
+      <p>窓の外の、まるで花火でいっぱいのような、あまの川のまん中に、黒い大きな建物が四棟ばかり立って、その一つの平屋根の上に、眼もさめるような、青宝玉と黄玉の大きな二つのすきとおった球が、輪になってしずかにくるくるとまわっていました。黄いろのがだんだん向うへまわって行って、青い小さいのがこっちへ進んで来、間もなく二つのはじは、重なり合って、きれいな緑いろの両面凸レンズのかたちをつくり、それもだんだん、まん中がふくらみ出して、とうとう青いのは、すっかりトパースの正面に来ましたので、緑の中心と黄いろな明るい環とができました。それがまただんだん横へ外れて、前のレンズの形を逆に繰り返し、とうとうすっとはなれて、サファイアは向うへめぐり、黄いろのはこっちへ進み、また丁度さっきのような風になりました。銀河の、かたちもなく音もない水にかこまれて、ほんとうにその黒い測候所が、睡っているように、しずかによこたわったのです。</p>
+    </dd>
+  </dl>
+
+  <dl>
+    <dt><a href="javascript:void(0);">MENU [２]</a></dt>
+    <dd>
+      <p>「あれは、水の速さをはかる器械です。水も……。」鳥捕りが云いかけたとき、「切符を拝見いたします。」三人の席の横に、赤い帽子をかぶったせいの高い車掌が、いつかまっすぐに立っていて云いました。鳥捕りは、だまってかくしから、小さな紙きれを出しました。車掌はちょっと見て、すぐ眼をそらして、（あなた方のは？）というように、指をうごかしながら、手をジョバンニたちの方へ出しました。</p>
+    </dd>
+  </dl>
+
+  <dl>
+    <dt><a href="javascript:void(0);">MENU [３]</a></dt>
+    <dd>
+      <p>「さあ、」ジョバンニは困って、もじもじしていましたら、カムパネルラは、わけもないという風で、小さな鼠いろの切符を出しました。ジョバンニは、すっかりあわててしまって、もしか上着のポケットにでも、入っていたかとおもいながら、手を入れて見ましたら、何か大きな畳んだ紙きれにあたりました。こんなもの入っていたろうかと思って、急いで出してみましたら、それは四つに折ったはがきぐらいの大きさの緑いろの紙でした。車掌が手を出しているもんですから何でも構わない、やっちまえと思って渡しましたら、車掌はまっすぐに立ち直って叮寧にそれを開いて見ていました。そして読みながら上着のぼたんやなんかしきりに直したりしていましたし燈台看守も下からそれを熱心にのぞいていましたから、ジョバンニはたしかにあれは証明書か何かだったと考えて少し胸が熱くなるような気がしました。</p>
+      <p>「これは三次空間の方からお持ちになったのですか。」車掌がたずねました。「何だかわかりません。」もう大丈夫だと安心しながらジョバンニはそっちを見あげてくつくつ笑いました。「よろしゅうございます。南十字へ着きますのは、次の第三時ころになります。」車掌は紙をジョバンニに渡して向うへ行きました。</p>
+    </dd>
+  </dl>
+
+  <dl>
+    <dt><a href="javascript:void(0);">MENU [４]</a></dt>
+    <dd>
+      <p>カムパネルラは、その紙切れが何だったか待ち兼ねたというように急いでのぞきこみました。ジョバンニも全く早く見たかったのです。ところがそれはいちめん黒い唐草のような模様の中に、おかしな十ばかりの字を印刷したものでだまって見ていると何だかその中へ吸い込まれてしまうような気がするのでした。すると鳥捕りが横からちらっとそれを見てあわてたように云いました。「おや、こいつは大したもんですぜ。こいつはもう、ほんとうの天上へさえ行ける切符だ。天上どこじゃない、どこでも勝手にあるける通行券です。こいつをお持ちになれぁ、なるほど、こんな不完全な幻想第四次の銀河鉄道なんか、どこまででも行ける筈でさあ、あなた方大したもんですね。」「何だかわかりません。」ジョバンニが赤くなって答えながらそれを又畳んでかくしに入れました。そしてきまりが悪いのでカムパネルラと二人、また窓の外をながめていましたが、その鳥捕りの時々大したもんだというようにちらちらこっちを見ているのがぼんやりわかりました。「もうじき鷲の停車場だよ。」カムパネルラが向う岸の、三つならんだ小さな青じろい三角標と地図とを見較べて云いました。</p>
+      <p>ジョバンニはなんだかわけもわからずににわかにとなりの鳥捕りが気の毒でたまらなくなりました。鷺をつかまえてせいせいしたとよろこんだり、白いきれでそれをくるくる包んだり、ひとの切符をびっくりしたように横目で見てあわててほめだしたり、そんなことを一一考えていると、もうその見ず知らずの鳥捕りのために、ジョバンニの持っているものでも食べるものでもなんでもやってしまいたい、もうこの人のほんとうの幸になるなら自分があの光る天の川の河原に立って百年つづけて立って鳥をとってやってもいいというような気がして、どうしてももう黙っていられなくなりました。ほんとうにあなたのほしいものは一体何ですか、と訊こうとして、それではあんまり出し抜けだから、どうしようかと考えて振り返って見ましたら、そこにはもうあの鳥捕りが居ませんでした。網棚の上には白い荷物も見えなかったのです。また窓の外で足をふんばってそらを見上げて鷺を捕る支度をしているのかと思って、急いでそっちを見ましたが、外はいちめんのうつくしい砂子と白いすすきの波ばかり、あの鳥捕りの広いせなかも尖った帽子も見えませんでした。</p>
+    </dd>
+  </dl>
+</div><!-- /#tabAccordion -->
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script src="../jquery-1.12.4.min.js"></script>
+<script src="../../common/js/chapterlist.js"></script>
+<script>
+var tabMenu = $( "#tabAccordion" );
+var switchPoint = 768;
+var fadeSpeed   = 500;
+var slideSpeed  = 500;
+
+var btnElem      = tabMenu.children( "dl" ).children( "dt" );
+var contentsArea = tabMenu.children( "dl" ).children( "dd" );
+
+btnElem.on("click", function() {
+  // 該当のクラスを持っていなければ、タブ要素全てのクラスを削除した上で
+  // クリックされたタブにのみクラス名をセット
+  if (!$( this ).hasClass("btnAcv")) {
+    btnElem.removeClass( "btnAcv" );
+    $( this ).addClass( "btnAcv" );
+
+    // ウィンドウ幅に応じて、タブ切り替えもしくはアコーディオン開閉でのコンテンツ表示を行なう
+    if (window.innerWidth > switchPoint) {
+      contentsArea.fadeOut(fadeSpeed);
+      $( this ).next().fadeIn(fadeSpeed);
+    } else {
+      contentsArea.slideUp(slideSpeed);
+      $( this ).next().slideDown(slideSpeed);
+    }
+  }
+});
+
+btnElem.first().click();
+</script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>JavaScript TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">画像をフェードアウト／フェードインで切り替える（２）</h2>
+
+<div id="wrapper">
+
+<div id="myArea">
+  <img id="aPhoto" src="./img/photo1.jpg" alt="photo1">
+</div>
+
+<form name="form1">
+  <input type="button" id="prev" value="prev">
+  <input type="button" id="next" value="next">
+</form>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script>
+(function() {
+  var numOfPhoto   = 4;
+  var currentPhoto = 1;
+  var aPhoto       = document.getElementById("aPhoto");
+  var photos;
+
+  var FADEINTERVAL = 40;
+  var cOpacity     = 1;
+  var inProgress   = false;
+  var forward      = true;
+
+  window.onload = init;
+
+  function init() {
+    photos = new Array(numOfPhoto);
+
+    for (var i = 1; i <= numOfPhoto; i++) {
+      photos[i]     = new Image();
+      photos[i].src = "./img/photo" + i + ".jpg";
+    }
+
+    document.getElementById("prev").onclick = prevImage;
+    document.getElementById("next").onclick = nextImage;
+
+    aPhoto.src = photos[1].src;
+  }
+
+  function getNextImage() {
+    if (currentPhoto < numOfPhoto) {
+      currentPhoto++;
+    } else {
+      currentPhoto = 1;
+    }
+
+    aPhoto.src = photos[currentPhoto].src;
+  }
+
+  function getPrevImage() {
+    if (currentPhoto == 1) {
+      currentPhoto = numOfPhoto;
+    } else {
+      currentPhoto--;
+    }
+
+    aPhoto.src = photos[currentPhoto].src;
+  }
+
+  function nextImage() {
+    if (inProgress) {
+      return;
+    }
+
+    forward = true;
+    fadeOutLoop();
+  }
+
+  function prevImage() {
+    if (inProgress) {
+      return;
+    }
+
+    forward = false;
+    fadeOutLoop();
+  }
+
+  function fadeOutLoop() {
+    inProgress = true;
+    cOpacity -= 0.05;
+    aPhoto.style.opacity = cOpacity;
+
+    if (cOpacity < 0) {
+      cOpacity = 0;
+      faiding  = false;
+      changeImage();
+      return;
+    } else {
+      setTimeout(fadeOutLoop(), FADEINTERVAL);
+    }
+  }
+
+  function changeImage() {
+    if (forward) {
+      getNextImage();
+    } else {
+      getPrevImage();
+    }
+
+    fadeInLoop();
+  }
+
+  function fadeInLoop() {
+    cOpacity += 0.05;
+    aPhoto.style.opacity = cOpacity;
+    if (cOpacity > 1) {
+      cOpacity = 1;
+      inProgress = false;
+      return;
+    } else {
+      setTimeout(fadeInLoop(), FADEINTERVAL);
+    }
+  }
+})();
+</script>
+</body>
+</html>

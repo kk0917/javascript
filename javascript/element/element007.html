@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name=”robots” content=”noindex,nofollow”/>
+<title>JavaScript TechnicalNote － SAMPLE</title>
+<link rel="stylesheet" href="../../common/css/common.css">
+<style>
+img {
+  padding: 5px;
+}
+#outer {
+  width: 100%;
+  height: 100%;
+}
+.overlay {
+  background-color: #000;
+  opacity: .7;
+  filter: alpha(opacity=70);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+.overlayimg {
+  position: absolute;
+  z-index: 11;
+  left: 50px;
+  top: 50px;
+}
+</style>
+</head>
+
+<body>
+
+<header class="baseHeader">
+<div>
+<h1>JavaScript TECHNIQUE</h1>
+<a href="../../chapterList.html">&gt;&nbsp;CHAPTER LIST</a>
+</div>
+</header>
+
+<h2 id="title">オーバーレイを追加し写真を拡大表示する（モーダルウィンドウ）</h2>
+
+<div id="wrapper">
+
+<div id="outer">
+  <p>画像をクリックすると拡大して表示されます。再度クリックすると元の表示に戻ります。</p>
+  <img src="./img/photo1.thumbnail.jpg" data-larger="./img/photo1.jpg" alt="">
+  <img src="./img/photo2.thumbnail.jpg" data-larger="./img/photo2.jpg" alt="">
+  <img src="./img/photo3.thumbnail.jpg" data-larger="./img/photo3.jpg" alt="">
+  <img src="./img/photo4.thumbnail.jpg" data-larger="./img/photo4.jpg" alt="">
+  <img src="./img/photo5.thumbnail.jpg" data-larger="./img/photo5.jpg" alt="">
+</div>
+
+</div><!-- /#wrapper -->
+
+<footer class="baseFooter">
+<small>Copyright &copy; kkkk. All Rights Reserved.</small>
+</footer>
+
+<script>
+window.onload = function() {
+  var imgs = document.getElementsByTagName("img");
+  imgs[0].focus();
+
+  for (var i = 0; i < imgs.length; i++) {
+    imgs[i].onclick   = expandPhoto;
+    imgs[i].onkeydown = expandPhoto;
+  }
+};
+
+function expandPhoto() {
+  // オーバーレイを作成してページに追加する
+  var overlay = document.createElement("div");
+  overlay.setAttribute("id", "overlay");
+  overlay.setAttribute("class", "overlay");
+  document.body.appendChild(overlay);
+
+  // <img>を作成してページに追加する
+  var img = document.createElement("img");
+  img.setAttribute("id", "img");
+  img.src = this.getAttribute("data-larger");
+  img.setAttribute("class", "overlayimg");
+
+  // 拡大画像またはオーバーレイ要素のクリックでページを元に戻す
+  img.onclick = restore;
+  document.getElementById("overlay").onclick = restore;
+
+  document.body.appendChild(img);
+}
+
+// ページを元に戻す
+function restore() {
+  document.body.removeChild(document.getElementById("overlay"));
+  document.body.removeChild(document.getElementById("img"));
+}
+</script>
+</body>
+</html>
