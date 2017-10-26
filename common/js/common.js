@@ -45,21 +45,28 @@
   };
 })();
 
-// ページ上端からナビゲーションエリアまでの距離をセット
+// ページスクロール追従ナビゲーション
 (function() {
-  var setFixed = $( "#globalNav" );
-  var menuTop  = setFixed.length ? setFixed.offset().top : false;
+  // ページ上端からナビゲーションエリアまでの距離をセット
+  var setFixed = document.getElementById('globalNav');
+  var menuTop  = setFixed.length ? setFixed.top + document.body.scrollTop : false;
 
-  $( window ).on("load scroll resize", function() {
-    // スクロール値がナビゲーションエリアの上端位置を超えたら、
-    if ($( window ).scrollTop() > menuTop) {
+  window.addEventListener('load', followingNavigation, false);
+  window.addEventListener('scroll', followingNavigation, false);
+  window.addEventListener('resize', followingNavigation, false);
+
+  function followingNavigation() {
+    // ウィンドウのスクロール値がナビゲーションエリアの上端位置を超えたら、
+    if (window.pageYOffset > menuTop) {
       // 画面の左上に位置固定
-      setFixed.css({top:"0", position:"fixed"});
+      setFixed.style.top      = '0';
+      setFixed.style.position = 'fixed';
     } else {
       // スクロール値がmenuTopの値以下になったら位置固定を解除
-      setFixed.css({top:"auto", position:"static"});
+      setFixed.style.top      = 'auto';
+      setFixed.style.position = 'static';
     }
-  });
+  }
 })();
 
 // ページトップ
