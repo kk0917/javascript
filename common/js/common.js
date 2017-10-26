@@ -3,79 +3,99 @@
   var rwdMenu     = document.getElementById('globalNav');
   var switchPoint = 768;
   var slideSpeed  = 500;
-  // var menuSource  = rwdMenu.html();
-  var menuSource  = rwdMenu.innerHTML;
 
   // ウィンドウの横幅を判別してグローバルナビゲーションのレイアウトを切り替える処理
   window.onload = function () {
     function menuSet() {
       // 現在のウィンドウサイズとブレークポイントの値を比較
       if (window.innerWidth < switchPoint) {
-        if (!$( "#rwdMenuWrap" ).length) {
-          // body開始タグ直後にモバイル用ナビゲーションメニューのベースを追加
-          $( "body" ).prepend(
-            "<div id='rwdMenuWrap'>"
-              + "<div id='switchBtnArea'>"
-                + "<a href='javascript:void(0);' id='switchBtn'></a>"
-              + "</div>"
-            + "</div>");
-          // モバイル用ナビゲーションメニューにグローバルナビゲーションのhtml要素を追加
-          $( "#rwdMenuWrap" ).append( menuSource );
+        if (document.getElementById('rwdMenuWrap') === null) {
+          // body開始タグ直後にモバイル用ナビゲーションメニューを追加
+          var spNav = document.createElement('div');
+          spNav.setAttribute('id', 'rwdMenuWrap');
+          spNav.innerHTML = "<div id='switchBtnArea'>"
+                              + "<a href='javascript:void(0);' id='switchBtn'></a>"
+                            + "</div>";
+          document.body.insertBefore(spNav, document.body.firstChild);
 
-          var menuList  = $( "#rwdMenuWrap > ul" );
-          var switchBtn = $( "#switchBtn" );
+          // モバイル用ナビゲーションメニューにグローバルナビゲーションのhtml要素を追加
+          var menuSource = document.createElement('div');
+          menuSource.innerHTML = rwdMenu.innerHTML;
+          document.getElementById('rwdMenuWrap').appendChild(menuSource.firstElementChild);
 
           // 開閉ボタンクリック時のスライド展開アニメーションと、閉じるボタン用スタイル定義のクラス追加
-          switchBtn.on("click", function() {
-            menuList.slideToggle(slideSpeed);
-            $( this ).toggleClass( "btnClose" );
-          });
+          document.getElementById('switchBtn').addEventListener('click', function () {
+            $( "#rwdMenuWrap > ul" ).slideToggle(slideSpeed);
+            this.className = this.className === 'btnClose' ? '' : 'btnClose';
+          }, false);
         }
       } else {
-        $( "#rwdMenuWrap" ).remove();
+        var rwdMenuWrap = document.getElementById('rwdMenuWrap');
+        if (rwdMenuWrap !== null) {
+          rwdMenuWrap.parentNode.removeChild(rwdMenuWrap);
+        }
       }
     }
 
-    $( window ).on("resize", function() {
+    window.addEventListener("resize", function() {
       menuSet();
-    });
+    }, false);
 
     menuSet();
   };
 })();
 
-// ページ上端からナビゲーションエリアまでの距離をセット
+// ページスクロール追従ナビゲーション
 (function() {
-  var setFixed = $( "#globalNav" );
-  var menuTop  = setFixed.length ? setFixed.offset().top : false;
+  // ページ上端からナビゲーションエリアまでの距離をセット
+  var setFixed = document.getElementById('globalNav');
+  var menuTop  = setFixed.length ? setFixed.top + document.body.scrollTop : false;
 
-  $( window ).on("load scroll resize", function() {
-    // スクロール値がナビゲーションエリアの上端位置を超えたら、
-    if ($( window ).scrollTop() > menuTop) {
+  window.addEventListener('load', followingNavigation, false);
+  window.addEventListener('scroll', followingNavigation, false);
+  window.addEventListener('resize', followingNavigation, false);
+
+  function followingNavigation() {
+    // ウィンドウのスクロール値がナビゲーションエリアの上端位置を超えたら、
+    if (window.pageYOffset > menuTop) {
       // 画面の左上に位置固定
-      setFixed.css({top:"0", position:"fixed"});
+      setFixed.style.top      = '0';
+      setFixed.style.position = 'fixed';
     } else {
       // スクロール値がmenuTopの値以下になったら位置固定を解除
-      setFixed.css({top:"auto", position:"static"});
+      setFixed.style.top      = 'auto';
+      setFixed.style.position = 'static';
     }
-  });
+  }
 })();
 
 // ページトップ
 (function() {
-  $(function(){
-    $('body').append('<a href="javascript:void(0);" id="fixedTop">▲</a>');
-    var fixedTop = $('#fixedTop');
-    fixedTop.on('click',function(){
-      $('html,body').animate({scrollTop:'0'},500);
-    });
-    $(window).on('load scroll resize',function(){
-      var showTop = 100;
-      if($(window).scrollTop() >= showTop){
-        fixedTop.fadeIn('slow');
-      } else if($(window).scrollTop() < showTop){
-        fixedTop.fadeOut('slow');
-      }
-    });
-  });
+  // 要素の生成とセット
+  var a         = document.createElement('a');
+  a.textContent = '▲';
+  a.setAttribute('href', 'javascript:void(0);');
+  a.setAttribute('id', 'fixedTop');
+  document.body.appendChild(a);
+
+  // クリック時のスクロールアニメーション
+  var fixedTop = document.getElementById('fixedTop');
+  fixedTop.addEventListener('click', function () {
+    $('html,body').animate({scrollTop:'0'},500);
+  }, false);
+
+  // 要素のフェードイン・フェードアウト
+  // $(window).on('load scroll resize',function(){
+  window.addEventListener('load', fadeInAndOut, false);
+  window.addEventListener('scroll', fadeInAndOut, false);
+  window.addEventListener('resize', fadeInAndOut, false);
+
+  function fadeInAndOut() {
+    var showTop = 100;
+    if(window.pageYOffset >= showTop){
+      $( fixedTop ).fadeIn('slow');
+    } else if(window.pageYOffset < showTop){
+      $( fixedTop ).fadeOut('slow');
+    }
+  };
 })();
