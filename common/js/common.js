@@ -3,8 +3,6 @@
   var rwdMenu     = document.getElementById('globalNav');
   var switchPoint = 768;
   var slideSpeed  = 500;
-  // var menuSource  = rwdMenu.html();
-  var menuSource  = rwdMenu.innerHTML;
 
   // ウィンドウの横幅を判別してグローバルナビゲーションのレイアウトを切り替える処理
   window.onload = function () {
@@ -21,25 +19,27 @@
           document.body.insertBefore(spNav, document.body.firstChild);
 
           // モバイル用ナビゲーションメニューにグローバルナビゲーションのhtml要素を追加
-          $( "#rwdMenuWrap" ).append( menuSource );
-
-          var menuList  = $( "#rwdMenuWrap > ul" );
-          var switchBtn = $( "#switchBtn" );
+          var menuSource = document.createElement('div');
+          menuSource.innerHTML = rwdMenu.innerHTML;
+          document.getElementById('rwdMenuWrap').appendChild(menuSource.firstElementChild);
 
           // 開閉ボタンクリック時のスライド展開アニメーションと、閉じるボタン用スタイル定義のクラス追加
-          switchBtn.on("click", function() {
-            menuList.slideToggle(slideSpeed);
-            $( this ).toggleClass( "btnClose" );
-          });
+          document.getElementById('switchBtn').addEventListener('click', function () {
+            $( "#rwdMenuWrap > ul" ).slideToggle(slideSpeed);
+            this.className = this.className === 'btnClose' ? '' : 'btnClose';
+          }, false);
         }
       } else {
-        $( "#rwdMenuWrap" ).remove();
+        var rwdMenuWrap = document.getElementById('rwdMenuWrap');
+        if (rwdMenuWrap !== null) {
+          rwdMenuWrap.parentNode.removeChild(rwdMenuWrap);
+        }
       }
     }
 
-    $( window ).on("resize", function() {
+    window.addEventListener("resize", function() {
       menuSet();
-    });
+    }, false);
 
     menuSet();
   };
