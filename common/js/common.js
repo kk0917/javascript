@@ -71,19 +71,31 @@
 
 // ページトップ
 (function() {
-  $(function(){
-    $('body').append('<a href="javascript:void(0);" id="fixedTop">▲</a>');
-    var fixedTop = $('#fixedTop');
-    fixedTop.on('click',function(){
-      $('html,body').animate({scrollTop:'0'},500);
-    });
-    $(window).on('load scroll resize',function(){
-      var showTop = 100;
-      if($(window).scrollTop() >= showTop){
-        fixedTop.fadeIn('slow');
-      } else if($(window).scrollTop() < showTop){
-        fixedTop.fadeOut('slow');
-      }
-    });
-  });
+  // 要素の生成とセット
+  var a         = document.createElement('a');
+  a.textContent = '▲';
+  a.setAttribute('href', 'javascript:void(0);');
+  a.setAttribute('id', 'fixedTop');
+  document.body.appendChild(a);
+
+  // クリック時のスクロールアニメーション
+  var fixedTop = document.getElementById('fixedTop');
+  fixedTop.addEventListener('click', function () {
+    $('html,body').animate({scrollTop:'0'},500);
+  }, false);
+
+  // 要素のフェードイン・フェードアウト
+  // $(window).on('load scroll resize',function(){
+  window.addEventListener('load', fadeInAndOut, false);
+  window.addEventListener('scroll', fadeInAndOut, false);
+  window.addEventListener('resize', fadeInAndOut, false);
+
+  function fadeInAndOut() {
+    var showTop = 100;
+    if(window.pageYOffset >= showTop){
+      $( fixedTop ).fadeIn('slow');
+    } else if(window.pageYOffset < showTop){
+      $( fixedTop ).fadeOut('slow');
+    }
+  };
 })();
