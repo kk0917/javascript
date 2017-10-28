@@ -155,6 +155,62 @@ btnAll.click(function() {
 
 // ページロード時にデフォルトで全画像を表示しておくため、ALLボタンクリック時の処理を一度実行
 btnAll.click();
+
+////////////////////////////////////////////////////////////////////////////////////
+// jQuery -> JavaScript
+
+// // フィルターボタン要素
+// var filterButtons  = document.querySelectorAll('#filterBtn a');
+// var allViewButtons = filterButtons[0];
+
+// // フィルタリングされる画像要素
+// var imagesList = document.querySelectorAll('#filterList li')
+
+// // クリックイベントで画像をフィルタリング表示する
+// filterButtons.forEach(function (value) {
+//   value.addEventListener('click', function(event) {
+//     // a要素のデフォルト動作をキャンセル
+//     event.preventDefault();
+
+//     // クリックしたボタンに該当する画像グループがフィルタリングされていなければフィルタリングする
+//     if (!this.classList.contains('active')) {
+//       // クリックしたボタンのクラス値（= フィルタリング対象のグループ名）
+//       var filterClass = value.getAttribute('class');
+
+//       // クリックしたボタンに該当するグループ画像を表示、それ以外を非表示
+//       imagesList.forEach(function (image) {
+//         if (image.classList.contains(filterClass)) {
+//           image.style.display = 'block';
+//           // TODO: 表示アニメーションを追加...
+//         } else {
+//           // TODO: 非表示アニメーションを追加...
+//           image.style.display = 'none';
+//         }
+//       });
+
+//       // クリックされたボタンにのみactiveクラスを追加
+//       filterButtons.forEach(function (button) {
+//         button.classList.remove('active');
+//       });
+//       this.classList.add('active');
+//     }
+//   }, false);
+// });
+
+// // ALLボタンクリック時の全画面表示処理
+// allViewButtons.addEventListener('click', function(event) {
+//   // a要素のデフォルト動作をキャンセル
+//   event.preventDefault();
+
+//   // 全画像を表示
+//   imagesList.forEach(function (image) {
+//     image.style.display = 'block';
+//     // TODO: 表示アニメーションを追加...
+//   });
+// }, false);
+
+// // ページロード時にデフォルトで全画像を表示しておくため、ALLボタンクリック時の処理を一度実行
+// allViewButtons.click();
 </script>
 </body>
 </html>

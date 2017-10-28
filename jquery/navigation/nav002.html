@@ -63,6 +63,7 @@ a:link,a:visited,a:active,a:hover { text-decoration: none; color: #000;}
 	background: #fff;
 	background: linear-gradient(to bottom,  #fff 0%,#efefef 100%);
 	border-bottom: #aaa 1px solid;
+	padding-left: 10px;
 	position: absolute;
 	z-index: 10;
 	overflow: hidden;
@@ -274,6 +275,28 @@ $( "#mddNav > ul > li" ).hover(function() {
 }, function() {
   childPanel.css({ display: "none"});
 });
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+// jQuery -> JavaScript
+
+// document.querySelectorAll('#mddNav > ul > li').forEach(function(value) {
+// 	var childPanel = value.querySelector('.mddWrap');
+	
+// 	if (childPanel !== null) {
+// 		value.addEventListener('mouseover', function() {
+// 			childPanel.style.display = 'block';
+// 			childPanel.style.height = '200px';
+// 			childPanel.style.opacity = '1';
+// 			// TODO: 表示アニメーションを追加...
+// 		}, false);
+// 		value.addEventListener('mouseout', function() {
+// 			childPanel.style.display = 'none';
+// 			childPanel.style.height = '0';
+// 			childPanel.style.opacity = '0';
+// 			// TODO: 非表示アニメーションを追加...
+// 		}, false);
+// 	}
+// })
 </script>
 </body>
 </html>
