@@ -21,6 +21,9 @@
   color: #20567d;
   border-bottom: 1px dotted #000000;
 }
+#box.show {
+  display: block;
+}
 #box_btn {
   /*position: absolute;
   top: 0;
@@ -72,6 +75,14 @@
 $( "#box_btn" ).on("click", function() {
   $( "#box" ).slideToggle();
 });
+
+/////////////////////////////////////////////////////////////////////////////////////
+// jQuery -> JavaScript
+
+// document.getElementById('box_btn').addEventListener('click', function() {
+//   document.getElementById('box').classList.toggle('show');
+//   // TODO: スライドアニメーションを追加...
+// }, false);
 </script>
 </body>
 </html>
