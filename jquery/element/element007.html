@@ -99,38 +99,69 @@ ul {*zoom: 1;}
 <script src="../jquery-1.12.4.min.js"></script>
 <script src="../../common/js/chapterlist.js"></script>
 <script>
-// 全てのliの高さを最大値に揃える ///////////////////////////////////////////////////////////////
+// 全てのliの高さを最大値に揃える
 (function() {
-  var allLi         = $( ".listArea ul li" );
-  // 高さを比較する際の、対象となるli要素のサイズ関連値を変数に格納しておく
-  var paddingTop    = parseInt(allLi.css( "padding-top" ));
-  var paddingBottom = parseInt(allLi.css( "padding-bottom" ));
-  var boxSizing     = allLi.css( "box-sizing" );
+  // var allLi         = $( ".listArea ul li" );
+  // // 高さを比較する際の、対象となるli要素のサイズ関連値を変数に格納しておく
+  // var paddingTop    = parseInt(allLi.css( "padding-top" ));
+  // var paddingBottom = parseInt(allLi.css( "padding-bottom" ));
+  // var boxSizing     = allLi.css( "box-sizing" );
 
-  $( window ).on("load", function() {
-    // 比較時のベース値
-    var maxHeight = 0;
+  // $( window ).on("load", function() {
+  //   // 比較時のベース値
+  //   var maxHeight = 0;
 
-    allLi.each(function() {
-      // 各li自身の高さを取得
-      var height = $( this ).outerHeight();
+  //   allLi.each(function() {
+  //     // 各li自身の高さを取得
+  //     var height = $( this ).outerHeight();
 
-      // すべてのliの高さを順々に取得し、最終的に最大値を格納
-      if (height > maxHeight) {
-        maxHeight = height;
-      }
-    });
+  //     // すべてのliの高さを順々に取得し、最終的に最大値を格納
+  //     if (height > maxHeight) {
+  //       maxHeight = height;
+  //     }
+  //   });
 
-    // すべてのliのheightを書き換えて高さを揃える
-    if (boxSizing === "border-box") {
-      allLi.css({height:maxHeight});
-    } else {
-      allLi.css({height:(maxHeight - (paddingTop + paddingBottom))});
+  //   // すべてのliのheightを書き換えて高さを揃える
+  //   if (boxSizing === "border-box") {
+  //     allLi.css({height:maxHeight});
+  //   } else {
+  //     allLi.css({height:(maxHeight - (paddingTop + paddingBottom))});
+  //   }
+  // });
+
+  /////////////////////////////////////////////////////////////////////////////////////////////
+  // jQuery -> JavaScript
+
+  // 高さを比較する際に対象となるli要素のサイズ関連値を取得
+  var allLi         = document.querySelectorAll('.listArea ul li');
+  var allLiStyle    = allLi[0].currentStyle || document.defaultView.getComputedStyle(allLi[0], '')
+  var paddingTop    = parseInt(allLiStyle.paddingTop);
+  var paddingBottom = parseInt(allLiStyle.paddingBottom);
+  var boxSizing     = allLiStyle.boxSizing;
+
+  // 比較時のベース値
+  var maxHeight = 0;
+
+  allLi.forEach(function (li) {
+    // li自身の高さを取得
+    var height = li.offsetHeight;
+    
+    // すべてのliの高さを順々に取得し、最終的に最大値を格納
+    if (height > maxHeight) {
+      maxHeight = height;
     }
   });
+
+  // すべてのliのheightを書き換えて高さを揃える
+  if (boxSizing === 'border-box') {
+    allLi.forEach(function (li) { li.style.height = maxHeight + 'px' });
+  } else {
+    allLi.forEach(function (li) { li.style.height = (maxHeight - (paddingTop + paddingBottom)) + 'px'; });
+  }
+
 })();
 
-// 一行ごとに高さを揃える ///////////////////////////////////////////////////////////////
+// 一行ごとに高さを揃える
 (function() {
   var ulElem        = $( ".listArea2 ul" );
   var allLi         = ulElem.find( "li" );
@@ -177,6 +208,62 @@ ul {*zoom: 1;}
   $( window ).on("load resize", function() {
     setHeight();
   });
+
+  //////////////////////////////////////////////////////////////////////////////////////////////
+  // jQuery -> JavaScript
+
+  // var ulElement     = document.querySelector('.listArea2 ul');
+  // var allLi         = document.querySelectorAll('.listArea2 ul li');
+  // var allLiStyle    = allLi[0].currentStyle || document.defaultView.getComputedStyle(allLi[0], '')
+  // var paddingTop    = parseInt(allLiStyle.paddingTop);
+  // var paddingBottom = parseInt(allLiStyle.paddingBottom);
+  // var boxSizing     = allLiStyle.boxSizing;
+
+  // window.addEventListener('load', setHeight, false);
+  // window.addEventListener('resize', setHeight, false);
+
+  // function setHeight() {
+  //   var maxHeight = 0;
+
+  //   // liが収まる最大行数を算出する
+  //   var ulWidth   = ulElement.offsetWidth;
+  //   var liWidth   = allLi[0].offsetWidth;
+  //   var maxColumn = Math.floor(ulWidth / liWidth)
+
+  //   allLi.forEach(function (li, index) {
+  //     li.style.height = 'auto';
+
+  //     // 各li自身の高さを取得
+  //     var height = li.offsetHeight
+
+  //     // 行ごとに高さを揃えるためのクラスをli要素に設定
+  //     li.classList.add('heightReplace');
+
+  //     // 行ごとの高さ最大値を格納
+  //     if  (height > maxHeight) { maxHeight = height; }
+
+  //     // 行ごとの1列目から最大列目に対して高さを設定する
+  //     if (boxSizing === 'border-box') {
+  //       ulElement.querySelectorAll('.heightReplace').forEach(function (li) {
+  //         li.style.height = maxHeight + 'px';
+  //       });
+  //     } else {
+  //       ulElement.querySelectorAll('.heightReplace').forEach(function (li) {
+  //         li.stle.height = maxHeight - (h - (paddingTop - paddingBottom)) + 'px';
+  //       });
+  //     }
+
+  //     // 行ごとの最大列数に達したら、高さの最大値と高さ設定用クラスをリセット
+  //     var i = index + 1;
+  //     if (i % maxColumn === 0 || i === allLi.length) {
+  //       maxHeight = 0;
+  //       allLi.forEach(function (li) {
+  //         li.classList.remove('heightReplace');
+  //       });
+  //     }
+  //   });
+  // }
+
 })();
 </script>
 </body>
