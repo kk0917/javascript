@@ -150,6 +150,77 @@ $( window ).on("load", function() {
 			.appendTo(fullScreen);
 	}, switchDelay);
 });
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// jQuery -> JavaScript
+
+// (function () {
+// 	// create background images and setting them
+// 	var div = document.createElement('div');
+// 	div.setAttribute('id', 'fullScreen');
+// 	div.innerHTML = 
+// 		'<img src="./img/element008/photo1.jpg">'
+// 	+ '<img src="./img/element008/photo2.jpg">'
+// 	+ '<img src="./img/element008/photo3.jpg">'
+// 	+ '<img src="./img/element008/photo4.jpg">'
+// 	+ '<img src="./img/element008/photo5.jpg">';
+
+// 	document.body.insertBefore(div, document.body.firstChild);
+
+// 	// setting the details of background images
+// 	window.onload = function () {
+// 		var fullScreen       = document.getElementById('fullScreen');
+// 		var backgroundImages = fullScreen.querySelectorAll('img');
+
+// 		// aspect ratio of background image
+// 		var imageRatio = backgroundImages[0].width / backgroundImages[0].height;
+
+// 		// execute the function when this page load and resize
+// 		setBackgroundImages();
+// 		window.addEventListener('resize', function() { setBackgroundImages() }, false);
+
+// 		// show only the first image
+// 		backgroundImages[0].style.visibility = 'visible';
+// 		backgroundImages.forEach(function (image, index) {
+// 			image.style.visibility = 'visible';
+// 			image.style.opacity    = index === 0 ? 1 : 0;
+// 		});
+// 			// TODO: add fade animation...
+		
+// 		// change the image to other one
+// 		setInterval(function () {
+// 			var firstImage = fullScreen.querySelector('img:nth-child(1)');
+// 			firstImage.style.opacity = 0;
+// 			firstImage.nextElementSibling.style.opacity = 1;
+// 			fullScreen.appendChild(firstImage);
+// 			// TODO: add fade animation...
+// 		}, 5000);
+
+// 		/**
+// 		 * get window size and image one -> set full screen
+// 		 */
+// 		function setBackgroundImages() {
+// 			var windowWidth  = window.innerWidth;
+// 			var windowHeight = window.innerHeight;
+
+// 			// image height in the case of making the width of current window equal image one
+// 			var setHeight = windowWidth / imageRatio;
+
+// 			if (setHeight < windowHeight) {
+// 				setHeight = window.innerHeight;
+// 				wdWidth   = setHeight * imageRatio;
+// 			}
+
+// 			fullScreen.style.height = windowHeight + 'px';
+// 			backgroundImages.forEach(function (image) {
+// 				image.style.marginTop  = Math.round(-setHeight / 2) + 'px';
+// 				image.style.marginLeft = Math.round(-windowWidth / 2) + 'px';
+// 				image.style.width      = windowWidth + 'px';
+// 				image.style.height     = setHeight + 'px';
+// 			});
+// 		}
+// 	};
+// })();
 </script>
 </body>
 </html>

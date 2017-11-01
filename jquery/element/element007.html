@@ -101,63 +101,63 @@ ul {*zoom: 1;}
 <script>
 // 全てのliの高さを最大値に揃える
 (function() {
-  // var allLi         = $( ".listArea ul li" );
-  // // 高さを比較する際の、対象となるli要素のサイズ関連値を変数に格納しておく
-  // var paddingTop    = parseInt(allLi.css( "padding-top" ));
-  // var paddingBottom = parseInt(allLi.css( "padding-bottom" ));
-  // var boxSizing     = allLi.css( "box-sizing" );
+  var allLi         = $( ".listArea ul li" );
+  // 高さを比較する際の、対象となるli要素のサイズ関連値を変数に格納しておく
+  var paddingTop    = parseInt(allLi.css( "padding-top" ));
+  var paddingBottom = parseInt(allLi.css( "padding-bottom" ));
+  var boxSizing     = allLi.css( "box-sizing" );
 
-  // $( window ).on("load", function() {
-  //   // 比較時のベース値
-  //   var maxHeight = 0;
+  $( window ).on("load", function() {
+    // 比較時のベース値
+    var maxHeight = 0;
 
-  //   allLi.each(function() {
-  //     // 各li自身の高さを取得
-  //     var height = $( this ).outerHeight();
+    allLi.each(function() {
+      // 各li自身の高さを取得
+      var height = $( this ).outerHeight();
 
-  //     // すべてのliの高さを順々に取得し、最終的に最大値を格納
-  //     if (height > maxHeight) {
-  //       maxHeight = height;
-  //     }
-  //   });
+      // すべてのliの高さを順々に取得し、最終的に最大値を格納
+      if (height > maxHeight) {
+        maxHeight = height;
+      }
+    });
 
-  //   // すべてのliのheightを書き換えて高さを揃える
-  //   if (boxSizing === "border-box") {
-  //     allLi.css({height:maxHeight});
-  //   } else {
-  //     allLi.css({height:(maxHeight - (paddingTop + paddingBottom))});
-  //   }
-  // });
+    // すべてのliのheightを書き換えて高さを揃える
+    if (boxSizing === "border-box") {
+      allLi.css({height:maxHeight});
+    } else {
+      allLi.css({height:(maxHeight - (paddingTop + paddingBottom))});
+    }
+  });
 
   /////////////////////////////////////////////////////////////////////////////////////////////
   // jQuery -> JavaScript
 
   // 高さを比較する際に対象となるli要素のサイズ関連値を取得
-  var allLi         = document.querySelectorAll('.listArea ul li');
-  var allLiStyle    = allLi[0].currentStyle || document.defaultView.getComputedStyle(allLi[0], '')
-  var paddingTop    = parseInt(allLiStyle.paddingTop);
-  var paddingBottom = parseInt(allLiStyle.paddingBottom);
-  var boxSizing     = allLiStyle.boxSizing;
+  // var allLi         = document.querySelectorAll('.listArea ul li');
+  // var allLiStyle    = allLi[0].currentStyle || document.defaultView.getComputedStyle(allLi[0], '')
+  // var paddingTop    = parseInt(allLiStyle.paddingTop);
+  // var paddingBottom = parseInt(allLiStyle.paddingBottom);
+  // var boxSizing     = allLiStyle.boxSizing;
 
-  // 比較時のベース値
-  var maxHeight = 0;
+  // // 比較時のベース値
+  // var maxHeight = 0;
 
-  allLi.forEach(function (li) {
-    // li自身の高さを取得
-    var height = li.offsetHeight;
+  // allLi.forEach(function (li) {
+  //   // li自身の高さを取得
+  //   var height = li.offsetHeight;
     
-    // すべてのliの高さを順々に取得し、最終的に最大値を格納
-    if (height > maxHeight) {
-      maxHeight = height;
-    }
-  });
+  //   // すべてのliの高さを順々に取得し、最終的に最大値を格納
+  //   if (height > maxHeight) {
+  //     maxHeight = height;
+  //   }
+  // });
 
-  // すべてのliのheightを書き換えて高さを揃える
-  if (boxSizing === 'border-box') {
-    allLi.forEach(function (li) { li.style.height = maxHeight + 'px' });
-  } else {
-    allLi.forEach(function (li) { li.style.height = (maxHeight - (paddingTop + paddingBottom)) + 'px'; });
-  }
+  // // すべてのliのheightを書き換えて高さを揃える
+  // if (boxSizing === 'border-box') {
+  //   allLi.forEach(function (li) { li.style.height = maxHeight + 'px' });
+  // } else {
+  //   allLi.forEach(function (li) { li.style.height = (maxHeight - (paddingTop + paddingBottom)) + 'px'; });
+  // }
 
 })();
 

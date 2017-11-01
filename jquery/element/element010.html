@@ -199,6 +199,67 @@ modalBtn.on("click", function(e) {
       });
   });
 });
+
+//////////////////////////////////////////////////////////////////////////////////////
+// jQuery -> JavaScript
+
+// (function () {
+//   var showModalButton = document.querySelector('.modalBtn');
+  
+//   showModalButton.addEventListener('click', function(event) {
+//     // disabled the default event of a element
+//     event.preventDefault();
+
+//     var href         = this.getAttribute('href');
+//     var source       = document.querySelector(href).innerHTML;
+//     var windowHeight = window.innerHeight;
+
+//     // insert overlay element and modal window element at before closed body tag
+//     var overlay = document.createElement('div');
+//     overlay.setAttribute('id', 'modalOverlay');
+
+//     var modalWindow = document.createElement('div');
+//     modalWindow.setAttribute('id', 'modalWindow');
+//     modalWindow.innerHTML = 
+//       '<div class="modalClose">×</div>'
+//     + '<div id="contWrap">'
+//       + source
+//     + '</div>';
+
+//     document.body.appendChild(overlay);
+//     document.body.appendChild(modalWindow);
+
+//     // show hidden overlay element and hidden modal window one by fade in
+//     var modalElements = document.querySelectorAll('#modalOverlay, #modalWindow');
+//     modalElements.forEach(function (element, index) {
+//       element.style.display = 'block';
+//       element.style.opacity = 0;
+
+//       if (index === 0) { // to overlay
+//         element.style.height = windowHeight + 'px';
+//         element.style.opacity = 0.7;
+
+//       } else if (index === 1) { // to modal window
+//         element.style.opacity = 1;
+//       }
+//     });
+
+//     // always adjust overlay's height when window are resize
+//     window.addEventListener('resize', function() {
+//       document.getElementById('modalOverlay').style.height = window.innerHeight;
+//     }, false);
+
+//     // fade out modal window when overlay element and close button clicks
+//     document.querySelectorAll('#modalOverlay, .modalClose').forEach(function (clickElement) {
+//       clickElement.addEventListener('click', function() {
+//         document.querySelectorAll('#modalWindow, #modalOverlay').forEach(function (removeElement) {
+//           // TODO: add fade out animation...
+//           removeElement.parentNode.removeChild(removeElement);
+//         });
+//       }, false);
+//     });
+//   }, false);
+// })();
 </script>
 </body>
 </html>

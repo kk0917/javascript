@@ -119,6 +119,53 @@ $( window ).on("load", function() {
 		opacity:"0",
 	}).animate({opacity:"1"}, fadeSpeed);
 });
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+// jQuery -> JavaScript
+
+// (function () {
+// 	// create and insert a background image
+// 	var imgElement = document.createElement('img');
+// 	imgElement.setAttribute('src', './img/element008/photo1.jpg');
+// 	imgElement.setAttribute('id', 'fullScreen');
+// 	document.body.insertBefore(imgElement, document.body.firstChild);
+
+// 	window.onload = function () {
+//  		// aspect ratio of background image
+// 		var imageObject = new Image();
+// 		imageObject.src = './img/element008/photo1.jpg';
+// 		var fadeSpeed       = 500;
+// 		var imageRatio      = imageObject.width / imageObject.height; // 画像読み込み後でないと値取得不可なので注意！
+
+// 		// execute the function when this page load and resize
+// 		window.addEventListener('resize', function() { imageFit() }, false);
+// 		imageFit();
+
+// 		// TODO: add a fade animation ...
+
+// 		/**
+// 		 * get window size and image size -> set by fullscreen
+// 		 */
+// 		function imageFit() {
+// 			var windowWidth  = window.innerWidth;
+// 			var windowHeight = window.innerHeight;
+// 			// image height in the case of making the width of current window equal image one
+// 			var setHeight    = Math.round(windowWidth / imageRatio);
+
+// 			if (setHeight < windowHeight) {
+// 				var setHeight   = window.innerHeight;
+// 				var windowWidth = Math.round(setHeight + imageRatio);
+// 			}
+
+// 			// set CSS showing background image on the center of window by full screen to the image
+// 			fullScreen.style.marginTop  = Math.round(-setHeight / 2) + 'px';
+// 			fullScreen.style.marginLeft = Math.round(-windowWidth / 2) + 'px';
+// 			fullScreen.style.width      = windowWidth + 'px';
+// 			fullScreen.style.height     = setHeight + 'px';
+// 			fullScreen.style.visibility = 'visible';
+// 		}
+// 	};
+// })();
 </script>
 </body>
 </html>
